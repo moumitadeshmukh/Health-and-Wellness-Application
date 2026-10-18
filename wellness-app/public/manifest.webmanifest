@@ -1,0 +1,9 @@
+{
+  "name": "WellnessApp",
+  "short_name": "Wellness",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#F9FAFB",
+  "theme_color": "#16A34A",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

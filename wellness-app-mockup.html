@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>WellnessApp — UI Mockups</title>
+<style>
+:root{--green:#16a34a;--green-l:#dcfce7;--green-d:#14532d;--green-m:#15803d;--gray-50:#f9fafb;--gray-100:#f3f4f6;--gray-200:#e5e7eb;--gray-300:#d1d5db;--gray-400:#9ca3af;--gray-500:#6b7280;--gray-600:#4b5563;--gray-700:#374151;--gray-800:#1f2937;--gray-900:#111827;--blue:#0ea5e9;--amber:#f59e0b;--red:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#1e1e2e;display:flex;height:100vh;overflow:hidden;}
+
+/* ── Left panel ── */
+#panel{width:220px;min-width:220px;background:#16181f;border-right:1px solid #2a2d3a;display:flex;flex-direction:column;overflow-y:auto;}
+.panel-header{padding:1rem;border-bottom:1px solid #2a2d3a;}
+.panel-logo{display:flex;align-items:center;gap:.5rem;font-weight:700;color:white;font-size:.9rem;}
+.panel-dot{width:28px;height:28px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.panel-sub{font-size:.65rem;color:#6b7280;margin-top:.15rem;}
+.panel-section{padding:.6rem 1rem .2rem;font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;color:#4b5563;font-weight:700;}
+.screen-btn{display:flex;align-items:center;gap:.5rem;width:100%;padding:.45rem 1rem;font-size:.78rem;color:#9ca3af;background:none;border:none;cursor:pointer;text-align:left;border-left:3px solid transparent;transition:all .15s;}
+.screen-btn:hover{background:#1e2130;color:white;}
+.screen-btn.active{background:#1a2a1e;color:#4ade80;border-left-color:var(--green);}
+.screen-btn .icon{font-size:.9rem;width:18px;text-align:center;}
+.view-toggle{padding:.75rem 1rem;margin-top:auto;border-top:1px solid #2a2d3a;display:flex;gap:.5rem;}
+.toggle-btn{flex:1;padding:.3rem 0;font-size:.7rem;border-radius:6px;border:1px solid #2a2d3a;background:none;color:#6b7280;cursor:pointer;font-weight:600;transition:all .15s;}
+.toggle-btn.active{background:var(--green);border-color:var(--green);color:white;}
+
+/* ── Right area ── */
+#workspace{flex:1;display:flex;flex-direction:column;overflow:hidden;padding:1.25rem;gap:1rem;}
+.ws-bar{display:flex;align-items:center;gap:.75rem;}
+.screen-title{color:white;font-size:.9rem;font-weight:600;}
+.url-pill{background:#2a2d3a;color:#9ca3af;font-size:.72rem;padding:.25rem .75rem;border-radius:999px;font-family:monospace;flex:1;max-width:340px;}
+
+/* ── Browser chrome ── */
+.browser{background:#2a2d3a;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5);display:flex;flex-direction:column;flex:1;min-height:0;}
+.browser-top{background:#1e2130;padding:.55rem 1rem;display:flex;align-items:center;gap:.75rem;border-bottom:1px solid #2a2d3a;flex-shrink:0;}
+.traffic{display:flex;gap:.4rem;}
+.tl{width:11px;height:11px;border-radius:50%;}
+.tl-r{background:#ff5f57;}.tl-y{background:#ffbd2e;}.tl-g{background:#28c840;}
+.browser-url{background:#2a2d3a;border-radius:6px;padding:.25rem .75rem;font-size:.72rem;color:#9ca3af;font-family:monospace;flex:1;max-width:400px;}
+.browser-body{flex:1;overflow-y:auto;overflow-x:hidden;background:white;}
+
+/* Phone frame */
+.phone-wrap{display:flex;justify-content:center;align-items:flex-start;padding:1rem;background:#1e1e2e;flex:1;overflow-y:auto;}
+.phone{width:375px;background:white;border-radius:40px;overflow:hidden;box-shadow:0 0 0 12px #1a1a2e,0 0 0 14px #2a2d3a,0 30px 80px rgba(0,0,0,.6);min-height:700px;position:relative;}
+.phone-notch{height:32px;background:#111;display:flex;align-items:center;justify-content:center;}
+.notch-bar{width:110px;height:22px;background:#000;border-radius:0 0 16px 16px;}
+
+/* ── App shell ── */
+.app-shell{display:flex;height:100%;min-height:600px;}
+.sidebar{width:220px;min-width:220px;background:white;border-right:1px solid var(--gray-200);display:flex;flex-direction:column;}
+.sb-brand{padding:1rem;border-bottom:1px solid var(--gray-200);display:flex;align-items:center;gap:.5rem;}
+.sb-icon{width:32px;height:32px;background:var(--green);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.sb-name{font-weight:700;font-size:.875rem;color:var(--gray-900);}
+.sb-link{display:flex;align-items:center;gap:.6rem;padding:.45rem 1rem .45rem 1.1rem;font-size:.78rem;color:var(--gray-600);border-left:3px solid transparent;cursor:pointer;}
+.sb-link:hover{background:var(--gray-50);color:var(--green);}
+.sb-link.act{background:var(--green-l);color:var(--green-d);border-left-color:var(--green);font-weight:600;}
+.sb-link .ico{font-size:.9rem;width:16px;text-align:center;}
+.sb-section{padding:.5rem 1rem .15rem;font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-400);font-weight:700;}
+.sb-bottom{margin-top:auto;border-top:1px solid var(--gray-100);padding:.5rem 0;}
+.main-area{flex:1;overflow-y:auto;background:var(--gray-50);}
+.top-bar{height:52px;background:white;border-bottom:1px solid var(--gray-100);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;}
+.top-bar-title{font-size:.875rem;font-weight:600;color:var(--gray-900);}
+.avatar{width:32px;height:32px;background:var(--green-l);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:var(--green-d);}
+.content{padding:1.25rem;}
+
+/* ── Reusable components ── */
+.card{background:white;border:1px solid var(--gray-200);border-radius:12px;padding:1rem;}
+.card-sm{background:white;border:1px solid var(--gray-200);border-radius:10px;padding:.75rem;}
+.btn-primary{background:var(--green);color:white;border:none;border-radius:8px;padding:.55rem 1.1rem;font-size:.8rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;}
+.btn-outline{background:white;color:var(--gray-700);border:1px solid var(--gray-300);border-radius:8px;padding:.5rem 1rem;font-size:.8rem;font-weight:500;cursor:pointer;}
+.badge{display:inline-block;font-size:.65rem;font-weight:600;padding:2px 8px;border-radius:999px;}
+.badge-green{background:var(--green-l);color:var(--green-d);}
+.badge-blue{background:#e0f2fe;color:#0369a1;}
+.badge-amber{background:#fef3c7;color:#92400e;}
+.badge-red{background:#fee2e2;color:#991b1b;}
+.badge-gray{background:var(--gray-100);color:var(--gray-600);}
+.input{width:100%;padding:.55rem .85rem;border:1px solid var(--gray-300);border-radius:8px;font-size:.8rem;color:var(--gray-900);outline:none;background:white;}
+.label{font-size:.75rem;font-weight:500;color:var(--gray-700);margin-bottom:.35rem;display:block;}
+.section-title{font-size:.95rem;font-weight:700;color:var(--gray-900);margin-bottom:.75rem;}
+.sub-title{font-size:.8rem;font-weight:600;color:var(--gray-800);margin-bottom:.5rem;}
+.text-sm{font-size:.78rem;color:var(--gray-600);}
+.text-xs{font-size:.7rem;color:var(--gray-400);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;}
+.mt-1{margin-top:.25rem;}.mt-2{margin-top:.5rem;}.mt-3{margin-top:.75rem;}.mt-4{margin-top:1rem;}
+.mb-1{margin-bottom:.25rem;}.mb-2{margin-bottom:.5rem;}.mb-3{margin-bottom:.75rem;}.mb-4{margin-bottom:1rem;}
+.flex{display:flex;}.items-center{align-items:center;}.gap-2{gap:.5rem;}.gap-3{gap:.75rem;}.justify-between{justify-content:space-between;}
+.ring-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center;}
+.ring-label{position:absolute;text-align:center;}
+
+/* ── Page: Landing ── */
+.landing{background:white;min-height:600px;}
+.land-nav{padding:.75rem 1.5rem;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;justify-content:space-between;}
+.land-hero{padding:2.5rem 1.5rem 2rem;text-align:center;background:linear-gradient(180deg,white 0%,#f0fdf4 100%);}
+.land-hero h1{font-size:2rem;font-weight:800;color:var(--gray-900);line-height:1.2;margin-bottom:.75rem;}
+.land-hero p{font-size:.875rem;color:var(--gray-500);max-width:480px;margin:0 auto .75rem;line-height:1.6;}
+.hero-stats{display:flex;justify-content:center;gap:2.5rem;margin-top:1.25rem;}
+.stat-val{font-size:1.5rem;font-weight:800;color:var(--green);}
+.stat-lbl{font-size:.7rem;color:var(--gray-500);}
+.feat-section{background:var(--gray-50);padding:1.5rem;}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;}
+.feat-card{background:white;border-radius:12px;padding:.875rem;border:1px solid var(--gray-100);}
+.feat-icon{font-size:1.5rem;margin-bottom:.4rem;}
+.feat-title{font-size:.78rem;font-weight:700;color:var(--gray-900);margin-bottom:.2rem;}
+.feat-desc{font-size:.7rem;color:var(--gray-500);line-height:1.5;}
+.land-cta{background:var(--green);padding:1.5rem;text-align:center;color:white;}
+
+/* ── Page: Auth ── */
+.auth-page{min-height:600px;background:linear-gradient(135deg,#f0fdf4,white,#ecfdf5);display:flex;align-items:center;justify-content:center;padding:2rem;}
+.auth-card{background:white;border-radius:20px;border:1px solid var(--gray-200);padding:2rem;width:100%;max-width:380px;box-shadow:0 10px 40px rgba(0,0,0,.08);}
+.pwd-bar{display:flex;gap:2px;margin-top:.4rem;}
+.pwd-seg{height:3px;flex:1;border-radius:2px;}
+
+/* ── Metric cards ── */
+.metric-card{background:white;border:1px solid var(--gray-200);border-radius:12px;padding:.875rem;position:relative;overflow:hidden;}
+.metric-label{font-size:.7rem;color:var(--gray-500);font-weight:500;}
+.metric-val{font-size:1.35rem;font-weight:800;color:var(--gray-900);margin:.1rem 0;}
+.metric-sub{font-size:.68rem;color:var(--gray-400);}
+.metric-bar-wrap{height:5px;background:var(--gray-100);border-radius:3px;margin-top:.6rem;}
+.metric-bar{height:5px;background:var(--green);border-radius:3px;}
+.metric-icon{position:absolute;top:.75rem;right:.75rem;font-size:1.25rem;opacity:.4;}
+
+/* ── Chart placeholder ── */
+.chart-area{background:var(--gray-50);border-radius:8px;padding:1rem;display:flex;align-items:flex-end;gap:4px;height:80px;}
+.bar{background:var(--green-l);border-radius:3px 3px 0 0;flex:1;min-width:18px;position:relative;}
+.bar.active{background:var(--green);}
+.sparkline{width:100%;height:48px;}
+
+/* ── BMI Gauge ── */
+.bmi-gauge-wrap{text-align:center;padding:.5rem 0;}
+
+/* ── Tab bar ── */
+.tab-bar{display:flex;background:white;border-bottom:1px solid var(--gray-200);}
+.tab{flex:1;padding:.6rem .5rem;font-size:.72rem;font-weight:500;color:var(--gray-500);border-bottom:2px solid transparent;cursor:pointer;text-align:center;}
+.tab.active{color:var(--green);border-bottom-color:var(--green);font-weight:600;}
+
+/* ── Recipe cards ── */
+.recipe-card{background:white;border:1px solid var(--gray-200);border-radius:12px;overflow:hidden;}
+.recipe-img{height:90px;background:linear-gradient(135deg,#bbf7d0,#a7f3d0);display:flex;align-items:center;justify-content:center;font-size:2rem;}
+.recipe-body{padding:.75rem;}
+.recipe-name{font-size:.78rem;font-weight:600;color:var(--gray-900);margin-bottom:.25rem;}
+.recipe-meta{font-size:.68rem;color:var(--gray-400);}
+
+/* ── Exercise cards ── */
+.ex-card{background:white;border:1px solid var(--gray-200);border-radius:12px;overflow:hidden;}
+.ex-img{height:80px;display:flex;align-items:center;justify-content:center;font-size:2rem;}
+.ex-body{padding:.6rem .75rem;}
+.ex-name{font-size:.78rem;font-weight:600;color:var(--gray-900);}
+.ex-cat{font-size:.68rem;color:var(--gray-400);}
+
+/* ── Chat ── */
+.chat-wrap{display:flex;flex-direction:column;height:100%;}
+.chat-disclaimer{background:#fef3c7;border:1px solid #fde68a;padding:.6rem .875rem;font-size:.72rem;color:#92400e;flex-shrink:0;}
+.chat-msgs{flex:1;overflow-y:auto;padding:.875rem;display:flex;flex-direction:column;gap:.6rem;min-height:0;}
+.msg-bot,.msg-user{display:flex;flex-direction:column;max-width:80%;}
+.msg-user{align-self:flex-end;align-items:flex-end;}
+.msg-bot{align-self:flex-start;align-items:flex-start;}
+.msg-bubble{padding:.55rem .8rem;border-radius:12px;font-size:.78rem;line-height:1.5;}
+.msg-bot .msg-bubble{background:var(--gray-100);color:var(--gray-800);border-radius:4px 12px 12px 12px;}
+.msg-user .msg-bubble{background:var(--green);color:white;border-radius:12px 4px 12px 12px;}
+.msg-time{font-size:.62rem;color:var(--gray-400);margin-top:2px;}
+.bot-label{display:flex;align-items:center;gap:.35rem;margin-bottom:.25rem;}
+.bot-avatar{width:22px;height:22px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:white;font-weight:700;}
+.quick-chips{padding:.75rem;border-top:1px solid var(--gray-100);display:flex;gap:.4rem;flex-wrap:wrap;background:white;flex-shrink:0;}
+.chip{background:var(--green-l);color:var(--green-d);padding:.3rem .7rem;border-radius:999px;font-size:.7rem;font-weight:500;cursor:pointer;border:1px solid #bbf7d0;}
+.chat-input-row{padding:.75rem;border-top:1px solid var(--gray-100);display:flex;gap:.5rem;background:white;flex-shrink:0;}
+.chat-input{flex:1;padding:.55rem .85rem;border:1px solid var(--gray-300);border-radius:999px;font-size:.78rem;outline:none;}
+.send-btn{width:34px;height:34px;background:var(--green);border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:white;font-size:.9rem;}
+
+/* ── Onboarding ── */
+.ob-page{min-height:600px;background:linear-gradient(135deg,#f0fdf4,white,#ecfdf5);display:flex;align-items:center;justify-content:center;padding:2rem;}
+.ob-card{background:white;border-radius:20px;border:1px solid var(--gray-200);padding:1.75rem;width:100%;max-width:420px;box-shadow:0 10px 40px rgba(0,0,0,.08);}
+.prog-bar{display:flex;gap:4px;margin-bottom:1.25rem;}
+.prog-seg{height:4px;flex:1;border-radius:2px;}
+
+/* Progress ring SVG */
+.progress-ring{transform:rotate(-90deg);}
+
+/* ── Progress page ── */
+.kpi-mini{text-align:center;}
+.kpi-val{font-size:1.4rem;font-weight:800;color:var(--green);}
+.kpi-lbl{font-size:.68rem;color:var(--gray-400);}
+
+/* ── Settings page ── */
+.settings-nav{display:flex;flex-direction:column;gap:.25rem;}
+.settings-link{padding:.5rem .75rem;border-radius:8px;font-size:.78rem;color:var(--gray-700);cursor:pointer;}
+.settings-link.act{background:var(--green-l);color:var(--green-d);font-weight:600;}
+
+/* Mobile bottom nav */
+.bottom-nav{height:56px;background:white;border-top:1px solid var(--gray-200);display:flex;align-items:center;flex-shrink:0;}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:.35rem 0;cursor:pointer;}
+.bn-ico{font-size:1.1rem;}
+.bn-lbl{font-size:.58rem;color:var(--gray-400);}
+.bn-item.act .bn-lbl{color:var(--green);}
+
+/* Helper to make screens fill frame */
+.screen{display:none;height:100%;}
+.screen.visible{display:flex;flex-direction:column;height:100%;}
+</style>
+</head>
+<body>
+
+<!-- ════════ LEFT PANEL ════════ -->
+<nav id="panel">
+  <div class="panel-header">
+    <div class="panel-logo">
+      <div class="panel-dot">💚</div>
+      <div>
+        <div>WellnessApp</div>
+        <div class="panel-sub">UI Mockups · v0.3</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-section">Public</div>
+  <button class="screen-btn active" onclick="show('landing',this,'/','Landing Page')"><span class="icon">🏠</span>Landing Page</button>
+  <button class="screen-btn" onclick="show('register',this,'/register','Sign Up')"><span class="icon">📝</span>Sign Up</button>
+  <button class="screen-btn" onclick="show('login',this,'/login','Sign In')"><span class="icon">🔐</span>Sign In</button>
+  <button class="screen-btn" onclick="show('onboarding',this,'/onboarding','Onboarding')"><span class="icon">🎯</span>Onboarding</button>
+
+  <div class="panel-section">App — Dashboard</div>
+  <button class="screen-btn" onclick="show('dashboard',this,'/dashboard','Dashboard')"><span class="icon">📊</span>Dashboard</button>
+
+  <div class="panel-section">App — Health</div>
+  <button class="screen-btn" onclick="show('bmi',this,'/bmi','BMI & Weight')"><span class="icon">⚖️</span>BMI & Weight</button>
+  <button class="screen-btn" onclick="show('tracker',this,'/tracker','Daily Tracker')"><span class="icon">📱</span>Daily Tracker</button>
+
+  <div class="panel-section">App — Nutrition</div>
+  <button class="screen-btn" onclick="show('recipes',this,'/recipes','Recipes')"><span class="icon">🥗</span>Recipe Finder</button>
+
+  <div class="panel-section">App — Fitness</div>
+  <button class="screen-btn" onclick="show('exercises',this,'/exercises','Exercises')"><span class="icon">🏋️</span>Exercise Library</button>
+  <button class="screen-btn" onclick="show('workout',this,'/workout','Workout Planner')"><span class="icon">💪</span>Workout Planner</button>
+
+  <div class="panel-section">App — AI</div>
+  <button class="screen-btn" onclick="show('coach',this,'/coach','WellnessBot')"><span class="icon">🤖</span>WellnessBot</button>
+
+  <div class="panel-section">App — Other</div>
+  <button class="screen-btn" onclick="show('progress',this,'/progress','Progress')"><span class="icon">📈</span>Progress Reports</button>
+  <button class="screen-btn" onclick="show('settings',this,'/settings','Settings')"><span class="icon">⚙️</span>Settings</button>
+
+  <div class="view-toggle">
+    <button class="toggle-btn active" id="btn-desktop" onclick="setView('desktop')">🖥 Desktop</button>
+    <button class="toggle-btn" id="btn-mobile" onclick="setView('mobile')">📱 Mobile</button>
+  </div>
+</nav>
+
+<!-- ════════ WORKSPACE ════════ -->
+<div id="workspace">
+  <div class="ws-bar">
+    <div class="screen-title" id="ws-title">Landing Page</div>
+    <div class="url-pill" id="ws-url">https://wellnessapp.com/</div>
+  </div>
+
+  <!-- Desktop browser frame -->
+  <div class="browser" id="browser-frame">
+    <div class="browser-top">
+      <div class="traffic"><div class="tl tl-r"></div><div class="tl tl-y"></div><div class="tl tl-g"></div></div>
+      <div class="browser-url" id="browser-url">https://wellnessapp.com/</div>
+    </div>
+    <div class="browser-body" id="browser-body">
+
+      <!-- ═══ LANDING ═══ -->
+      <div class="screen visible" id="s-landing">
+        <div class="landing">
+          <nav class="land-nav">
+            <div style="display:flex;align-items:center;gap:.5rem;">
+              <div style="width:30px;height:30px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;">💚</div>
+              <span style="font-weight:700;font-size:.9rem;color:var(--gray-900);">WellnessApp</span>
+            </div>
+            <div style="display:flex;gap:.5rem;">
+              <button class="btn-outline" style="font-size:.75rem;padding:.35rem .7rem;">Sign in</button>
+              <button class="btn-primary" style="font-size:.75rem;padding:.35rem .8rem;">Get started free</button>
+            </div>
+          </nav>
+          <div class="land-hero">
+            <span style="background:var(--green-l);color:var(--green-d);font-size:.7rem;font-weight:600;padding:.25rem .75rem;border-radius:999px;border:1px solid #bbf7d0;">Your personal health companion</span>
+            <h1 style="margin-top:.75rem;">One app for your entire<br/><span style="color:var(--green);">health & wellness journey</span></h1>
+            <p>Track nutrition, monitor weight, discover recipes, follow workout plans, and chat with an AI wellness coach — all in one place.</p>
+            <div style="display:flex;gap:.75rem;justify-content:center;">
+              <button class="btn-primary">Start for free →</button>
+              <button class="btn-outline">Sign in</button>
+            </div>
+            <div class="hero-stats">
+              <div><div class="stat-val">10+</div><div class="stat-lbl">Health modules</div></div>
+              <div><div class="stat-val">100+</div><div class="stat-lbl">Exercises</div></div>
+              <div><div class="stat-val">500+</div><div class="stat-lbl">Recipes</div></div>
+            </div>
+          </div>
+          <div class="feat-section">
+            <div style="text-align:center;margin-bottom:1rem;"><strong style="font-size:.95rem;">Everything you need, in one place</strong><br/><span style="font-size:.75rem;color:var(--gray-500);">No more juggling multiple apps</span></div>
+            <div class="feat-grid">
+              <div class="feat-card"><div class="feat-icon">⚖️</div><div class="feat-title">BMI & Weight</div><div class="feat-desc">Calculate BMI, set goals, track weight with interactive charts.</div></div>
+              <div class="feat-card"><div class="feat-icon">🥗</div><div class="feat-title">Smart Recipes</div><div class="feat-desc">Enter ingredients you have and discover healthy recipes instantly.</div></div>
+              <div class="feat-card"><div class="feat-icon">🏃</div><div class="feat-title">Exercise Library</div><div class="feat-desc">100+ categorized exercises with instructions and safety guidance.</div></div>
+              <div class="feat-card"><div class="feat-icon">💧</div><div class="feat-title">Daily Tracker</div><div class="feat-desc">Log steps, water, meals, sleep — all habits in one place.</div></div>
+              <div class="feat-card"><div class="feat-icon">📈</div><div class="feat-title">Progress Reports</div><div class="feat-desc">Weight trends, habit streaks, and weekly summaries.</div></div>
+              <div class="feat-card"><div class="feat-icon">🤖</div><div class="feat-title">AI Wellness Coach</div><div class="feat-desc">Chat with WellnessBot for meal plans, workout plans, and tips.</div></div>
+            </div>
+          </div>
+          <div style="background:#fffbeb;border-top:1px solid #fef3c7;padding:.75rem 1.5rem;text-align:center;font-size:.72rem;color:#92400e;">⚠️ WellnessApp provides general wellness information only and is not a substitute for professional medical advice.</div>
+          <div class="land-cta">
+            <div style="font-size:1.1rem;font-weight:700;margin-bottom:.4rem;">Start your wellness journey today</div>
+            <div style="font-size:.8rem;opacity:.85;margin-bottom:.75rem;">Free to use. No credit card required.</div>
+            <button style="background:white;color:var(--green);border:none;border-radius:10px;padding:.6rem 1.5rem;font-weight:700;font-size:.8rem;cursor:pointer;">Create free account →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ REGISTER ═══ -->
+      <div class="screen" id="s-register">
+        <div class="auth-page">
+          <div class="auth-card">
+            <div style="text-align:center;margin-bottom:1.25rem;">
+              <div style="width:44px;height:44px;background:var(--green);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto .6rem;">💚</div>
+              <div style="font-weight:700;font-size:.9rem;color:var(--gray-900);">WellnessApp</div>
+            </div>
+            <div style="margin-bottom:1.25rem;"><h2 style="font-size:1.1rem;font-weight:700;color:var(--gray-900);">Create your account</h2><p style="font-size:.78rem;color:var(--gray-500);margin-top:.2rem;">Start your wellness journey — it's free.</p></div>
+            <!-- Draft restored banner -->
+            <div style="background:var(--green-l);border:1px solid #bbf7d0;border-radius:8px;padding:.5rem .75rem;font-size:.72rem;color:var(--green-d);display:flex;align-items:center;gap:.4rem;margin-bottom:.75rem;">✅ Draft restored — your previous details have been loaded. <span style="margin-left:auto;cursor:pointer;color:#86efac;">✕</span></div>
+            <div style="display:flex;flex-direction:column;gap:.875rem;">
+              <div><span class="label">Full name *</span><input class="input" value="Priya Sharma" readonly/></div>
+              <div><span class="label">Email address *</span><input class="input" value="priya@example.com" readonly/></div>
+              <div><span class="label">Password *</span>
+                <input class="input" value="••••••••••••" type="password" readonly/>
+                <div class="pwd-bar mt-1">
+                  <div class="pwd-seg" style="background:var(--green);"></div>
+                  <div class="pwd-seg" style="background:var(--green);"></div>
+                  <div class="pwd-seg" style="background:var(--green);"></div>
+                  <div class="pwd-seg" style="background:var(--gray-200);"></div>
+                </div>
+                <div style="font-size:.68rem;color:var(--gray-400);margin-top:2px;">Fair — use 12+ characters for stronger password</div>
+              </div>
+              <div><span class="label">Confirm password *</span>
+                <input class="input" value="••••••••••••" type="password" readonly/>
+                <div style="font-size:.68rem;color:var(--green);margin-top:4px;display:flex;align-items:center;gap:3px;">✅ Passwords match</div>
+              </div>
+              <button class="btn-primary" style="width:100%;justify-content:center;padding:.65rem;">Create account</button>
+            </div>
+            <div style="text-align:center;font-size:.75rem;color:var(--gray-500);margin-top:.875rem;">Already have an account? <span style="color:var(--green);font-weight:600;cursor:pointer;">Sign in</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ LOGIN ═══ -->
+      <div class="screen" id="s-login">
+        <div class="auth-page">
+          <div class="auth-card">
+            <div style="text-align:center;margin-bottom:1.25rem;">
+              <div style="width:44px;height:44px;background:var(--green);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto .6rem;">💚</div>
+              <div style="font-weight:700;font-size:.9rem;color:var(--gray-900);">WellnessApp</div>
+            </div>
+            <div style="margin-bottom:1.25rem;"><h2 style="font-size:1.1rem;font-weight:700;color:var(--gray-900);">Welcome back</h2><p style="font-size:.78rem;color:var(--gray-500);margin-top:.2rem;">Sign in to your account to continue.</p></div>
+            <div style="display:flex;flex-direction:column;gap:.875rem;">
+              <div><span class="label">Email address</span><input class="input" value="priya@example.com" readonly/></div>
+              <div><span class="label">Password</span><input class="input" value="••••••••••••" type="password" readonly/></div>
+              <button class="btn-primary" style="width:100%;justify-content:center;padding:.65rem;">Sign in</button>
+            </div>
+            <div style="text-align:center;font-size:.75rem;color:var(--gray-500);margin-top:.875rem;">Don't have an account? <span style="color:var(--green);font-weight:600;cursor:pointer;">Create one free</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ ONBOARDING ═══ -->
+      <div class="screen" id="s-onboarding">
+        <div class="ob-page">
+          <div class="ob-card">
+            <div style="text-align:center;margin-bottom:1rem;">
+              <div style="width:40px;height:40px;background:var(--green);border-radius:12px;margin:0 auto .5rem;display:flex;align-items:center;justify-content:center;font-size:18px;">💚</div>
+              <div style="font-weight:700;font-size:.95rem;">Set up your profile</div>
+              <div style="font-size:.73rem;color:var(--gray-400);margin-top:.15rem;">Help us personalise your experience</div>
+            </div>
+            <div class="prog-bar">
+              <div class="prog-seg" style="background:var(--green);"></div>
+              <div class="prog-seg" style="background:var(--green);"></div>
+              <div class="prog-seg" style="background:var(--gray-200);"></div>
+              <div class="prog-seg" style="background:var(--gray-200);"></div>
+            </div>
+            <!-- Draft restored banner -->
+            <div style="background:var(--green-l);border:1px solid #bbf7d0;border-radius:8px;padding:.5rem .75rem;font-size:.72rem;color:var(--green-d);display:flex;align-items:center;gap:.4rem;margin-bottom:.875rem;">✅ Draft restored — you can pick up where you left off.<span style="margin-left:auto;cursor:pointer;color:#86efac;">✕</span></div>
+            <div style="font-size:.95rem;font-weight:600;color:var(--gray-900);margin-bottom:.875rem;">Body & Goals <span style="font-size:.7rem;color:var(--gray-400);font-weight:400;">Step 2 of 4</span></div>
+            <div style="display:flex;flex-direction:column;gap:.75rem;">
+              <div class="grid2">
+                <div><span class="label">Height (cm) *</span><input class="input" value="162" readonly/></div>
+                <div><span class="label">Weight (kg) *</span><input class="input" value="58" readonly/></div>
+              </div>
+              <div><span class="label">Fitness goal *</span>
+                <select class="input" style="background:white;">
+                  <option>Weight Maintenance</option>
+                </select>
+              </div>
+              <div style="display:flex;gap:.5rem;margin-top:.25rem;">
+                <button class="btn-outline" style="flex:1;">← Back</button>
+                <button class="btn-primary" style="flex:1;justify-content:center;">Continue →</button>
+              </div>
+            </div>
+            <div style="text-align:center;font-size:.68rem;color:var(--gray-400);margin-top:.75rem;">Step 2 of 4</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ DASHBOARD ═══ -->
+      <div class="screen" id="s-dashboard">
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sb-brand"><div class="sb-icon">💚</div><span class="sb-name">WellnessApp</span></div>
+            <div style="padding:.5rem 0;">
+              <div class="sb-link act"><span class="ico">📊</span>Dashboard</div>
+              <div class="sb-link"><span class="ico">🥗</span>Recipes</div>
+              <div class="sb-link"><span class="ico">⚖️</span>BMI & Weight</div>
+              <div class="sb-link"><span class="ico">📱</span>Daily Tracker</div>
+              <div class="sb-link"><span class="ico">🏋️</span>Exercises</div>
+              <div class="sb-link"><span class="ico">💪</span>Workout Planner</div>
+              <div class="sb-link"><span class="ico">📈</span>Progress</div>
+              <div class="sb-link"><span class="ico">🤖</span>WellnessBot</div>
+            </div>
+            <div class="sb-bottom">
+              <div class="sb-link"><span class="ico">⚙️</span>Settings</div>
+              <div class="sb-link" style="color:#ef4444;"><span class="ico">🚪</span>Sign out</div>
+            </div>
+          </div>
+          <div class="main-area">
+            <div class="top-bar"><span class="top-bar-title">Dashboard</span><div class="avatar">PS</div></div>
+            <div class="content">
+              <div style="font-size:1rem;font-weight:700;color:var(--gray-900);margin-bottom:.25rem;">Good morning, Priya 👋</div>
+              <div style="font-size:.78rem;color:var(--gray-500);margin-bottom:1rem;">Friday, 16 October 2026 · Let's have a healthy day!</div>
+              <div class="grid4 mb-4">
+                <div class="metric-card">
+                  <div class="metric-icon">⚖️</div>
+                  <div class="metric-label">Weight / BMI</div>
+                  <div class="metric-val">58 kg</div>
+                  <div class="metric-sub">BMI 22.1 · Healthy</div>
+                  <span class="badge badge-green" style="margin-top:.35rem;">On track</span>
+                </div>
+                <div class="metric-card">
+                  <div class="metric-icon">👟</div>
+                  <div class="metric-label">Steps today</div>
+                  <div class="metric-val">6,234</div>
+                  <div class="metric-sub">Goal: 10,000</div>
+                  <div class="metric-bar-wrap"><div class="metric-bar" style="width:62%;"></div></div>
+                </div>
+                <div class="metric-card">
+                  <div class="metric-icon">💧</div>
+                  <div class="metric-label">Water intake</div>
+                  <div class="metric-val">1.8 L</div>
+                  <div class="metric-sub">Goal: 2.5 L</div>
+                  <div class="metric-bar-wrap"><div class="metric-bar" style="width:72%;"></div></div>
+                </div>
+                <div class="metric-card">
+                  <div class="metric-icon">😴</div>
+                  <div class="metric-label">Sleep</div>
+                  <div class="metric-val">7h 15m</div>
+                  <div class="metric-sub">Bedtime 11 PM → 6:15 AM</div>
+                  <span class="badge badge-green" style="margin-top:.35rem;">Good</span>
+                </div>
+              </div>
+              <div class="grid2">
+                <div class="card">
+                  <div class="sub-title mb-2">Today's habit completion</div>
+                  <div style="display:flex;align-items:center;gap:1rem;">
+                    <div style="position:relative;display:inline-flex;">
+                      <svg width="80" height="80" class="progress-ring">
+                        <circle cx="40" cy="40" r="32" fill="none" stroke="#e5e7eb" stroke-width="8"/>
+                        <circle cx="40" cy="40" r="32" fill="none" stroke="#16a34a" stroke-width="8" stroke-dasharray="201" stroke-dashoffset="50" stroke-linecap="round"/>
+                      </svg>
+                      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:800;color:var(--gray-900);">75%</div>
+                    </div>
+                    <div style="flex:1;">
+                      <div style="display:flex;flex-direction:column;gap:.3rem;">
+                        <div style="display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--gray-700);">✅ Steps logged</div>
+                        <div style="display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--gray-700);">✅ Water logged</div>
+                        <div style="display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--gray-700);">✅ Sleep logged</div>
+                        <div style="display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--gray-400);">⏳ Weight not logged</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="sub-title mb-2">Steps this week</div>
+                  <div class="chart-area" style="height:70px;">
+                    <div class="bar" style="height:55%;"><div style="font-size:.55rem;text-align:center;color:var(--gray-400);margin-bottom:2px;">5.2k</div></div>
+                    <div class="bar" style="height:80%;"><div style="font-size:.55rem;text-align:center;color:var(--gray-400);margin-bottom:2px;">7.8k</div></div>
+                    <div class="bar" style="height:40%;"><div style="font-size:.55rem;text-align:center;color:var(--gray-400);margin-bottom:2px;">4.1k</div></div>
+                    <div class="bar" style="height:90%;"><div style="font-size:.55rem;text-align:center;color:var(--gray-400);margin-bottom:2px;">8.9k</div></div>
+                    <div class="bar" style="height:60%;"><div style="font-size:.55rem;text-align:center;color:var(--gray-400);margin-bottom:2px;">6.2k</div></div>
+                    <div class="bar active" style="height:62%;"><div style="font-size:.55rem;text-align:center;color:white;margin-bottom:2px;">6.2k</div></div>
+                    <div class="bar" style="height:10%;opacity:.3;"></div>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;font-size:.6rem;color:var(--gray-400);margin-top:.3rem;"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span style="color:var(--green);font-weight:600;">Sat</span><span>Sun</span></div>
+                </div>
+              </div>
+              <div class="card mt-3">
+                <div class="sub-title mb-2">Quick actions</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+                  <button class="btn-primary" style="font-size:.73rem;padding:.4rem .75rem;">+ Log weight</button>
+                  <button class="btn-outline" style="font-size:.73rem;padding:.4rem .75rem;">💧 Add water</button>
+                  <button class="btn-outline" style="font-size:.73rem;padding:.4rem .75rem;">👟 Log steps</button>
+                  <button class="btn-outline" style="font-size:.73rem;padding:.4rem .75rem;">🥗 Find recipe</button>
+                  <button class="btn-outline" style="font-size:.73rem;padding:.4rem .75rem;">🤖 Ask WellnessBot</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ BMI & WEIGHT ═══ -->
+      <div class="screen" id="s-bmi">
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sb-brand"><div class="sb-icon">💚</div><span class="sb-name">WellnessApp</span></div>
+            <div style="padding:.5rem 0;">
+              <div class="sb-link"><span class="ico">📊</span>Dashboard</div>
+              <div class="sb-link"><span class="ico">🥗</span>Recipes</div>
+              <div class="sb-link act"><span class="ico">⚖️</span>BMI & Weight</div>
+              <div class="sb-link"><span class="ico">📱</span>Daily Tracker</div>
+              <div class="sb-link"><span class="ico">🏋️</span>Exercises</div>
+              <div class="sb-link"><span class="ico">💪</span>Workout Planner</div>
+              <div class="sb-link"><span class="ico">📈</span>Progress</div>
+            </div>
+          </div>
+          <div class="main-area">
+            <div class="top-bar"><span class="top-bar-title">BMI & Weight</span><div class="avatar">PS</div></div>
+            <div class="content">
+              <div class="grid2">
+                <div class="card">
+                  <div class="sub-title">BMI Calculator</div>
+                  <div class="grid2 mt-2 mb-2">
+                    <div><span class="label">Height (cm)</span><input class="input" value="162" readonly/></div>
+                    <div><span class="label">Weight (kg)</span><input class="input" value="58" readonly/></div>
+                  </div>
+                  <button class="btn-primary" style="width:100%;justify-content:center;margin-bottom:.875rem;">Calculate BMI</button>
+                  <!-- Result -->
+                  <div style="background:var(--green-l);border:1px solid #bbf7d0;border-radius:10px;padding:.875rem;text-align:center;">
+                    <div style="font-size:2rem;font-weight:900;color:var(--green);">22.1</div>
+                    <span class="badge badge-green" style="font-size:.7rem;">✅ Healthy Weight</span>
+                    <div style="font-size:.7rem;color:var(--gray-500);margin-top:.4rem;">Healthy range for your height: 48.6 – 65.8 kg</div>
+                    <!-- SVG gauge -->
+                    <svg viewBox="0 0 200 110" style="width:160px;margin:.5rem auto 0;">
+                      <path d="M20,100 A80,80 0 0,1 180,100" fill="none" stroke="#e5e7eb" stroke-width="14" stroke-linecap="round"/>
+                      <path d="M20,100 A80,80 0 0,1 180,100" fill="none" stroke="url(#g)" stroke-width="14" stroke-linecap="round" stroke-dasharray="251" stroke-dashoffset="0"/>
+                      <defs>
+                        <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stop-color="#60a5fa"/>
+                          <stop offset="33%" stop-color="#4ade80"/>
+                          <stop offset="66%" stop-color="#facc15"/>
+                          <stop offset="100%" stop-color="#f87171"/>
+                        </linearGradient>
+                      </defs>
+                      <!-- Needle -->
+                      <line x1="100" y1="100" x2="60" y2="35" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
+                      <circle cx="100" cy="100" r="5" fill="#111"/>
+                    </svg>
+                  </div>
+                  <div style="font-size:.65rem;color:var(--gray-400);margin-top:.5rem;line-height:1.5;">⚕️ BMI is a screening tool and does not directly measure body fat. Consult a healthcare professional.</div>
+                </div>
+                <div class="card">
+                  <div class="sub-title mb-2">Log weight</div>
+                  <div style="background:var(--green-l);border:1px solid #bbf7d0;border-radius:8px;padding:.4rem .65rem;font-size:.7rem;color:var(--green-d);display:flex;align-items:center;gap:.3rem;margin-bottom:.75rem;">✅ Draft restored — weight data loaded.</div>
+                  <div style="display:flex;flex-direction:column;gap:.6rem;">
+                    <div><span class="label">Weight (kg)</span><input class="input" value="58.2" readonly/></div>
+                    <div><span class="label">Date</span><input class="input" value="2026-10-16" readonly/></div>
+                    <div><span class="label">Notes (optional)</span><input class="input" value="Morning, after breakfast" readonly/></div>
+                    <button class="btn-primary" style="width:100%;justify-content:center;">Log weight</button>
+                  </div>
+                  <div class="sub-title mt-3 mb-2">Weight goal</div>
+                  <div class="grid2">
+                    <div><span class="label">Target (kg)</span><input class="input" value="55" readonly/></div>
+                    <div><span class="label">Target date</span><input class="input" value="2027-03-01" readonly/></div>
+                  </div>
+                  <button class="btn-outline" style="width:100%;margin-top:.5rem;justify-content:center;font-size:.78rem;">Save goal</button>
+                </div>
+              </div>
+              <div class="card mt-3">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;">
+                  <div class="sub-title">Weight history</div>
+                  <div style="display:flex;gap:.25rem;">
+                    <button class="badge badge-green" style="cursor:pointer;border:none;">Monthly</button>
+                    <button class="badge badge-gray" style="cursor:pointer;border:none;">Weekly</button>
+                    <button class="badge badge-gray" style="cursor:pointer;border:none;">Yearly</button>
+                  </div>
+                </div>
+                <!-- Weight chart -->
+                <svg viewBox="0 0 500 80" style="width:100%;height:80px;">
+                  <polyline fill="none" stroke="#dcfce7" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" points="0,60 80,55 160,50 240,48 320,46 400,44 500,42"/>
+                  <polyline fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0,60 80,55 160,50 240,48 320,46 400,44 500,42"/>
+                  <circle cx="0" cy="60" r="4" fill="#16a34a"/><circle cx="80" cy="55" r="4" fill="#16a34a"/><circle cx="160" cy="50" r="4" fill="#16a34a"/><circle cx="240" cy="48" r="4" fill="#16a34a"/><circle cx="320" cy="46" r="4" fill="#16a34a"/><circle cx="400" cy="44" r="4" fill="#16a34a"/><circle cx="500" cy="42" r="4" fill="#16a34a"/>
+                </svg>
+                <div style="display:flex;justify-content:space-between;font-size:.62rem;color:var(--gray-400);">
+                  <span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ TRACKER ═══ -->
+      <div class="screen" id="s-tracker">
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sb-brand"><div class="sb-icon">💚</div><span class="sb-name">WellnessApp</span></div>
+            <div style="padding:.5rem 0;">
+              <div class="sb-link"><span class="ico">📊</span>Dashboard</div>
+              <div class="sb-link"><span class="ico">🥗</span>Recipes</div>
+              <div class="sb-link"><span class="ico">⚖️</span>BMI & Weight</div>
+              <div class="sb-link act"><span class="ico">📱</span>Daily Tracker</div>
+              <div class="sb-link"><span class="ico">🏋️</span>Exercises</div>
+              <div class="sb-link"><span class="ico">💪</span>Workout Planner</div>
+              <div class="sb-link"><span class="ico">📈</span>Progress</div>
+            </div>
+          </div>
+          <div class="main-area">
+            <div class="top-bar"><span class="top-bar-title">Daily Tracker</span><div class="avatar">PS</div></div>
+            <div class="tab-bar">
+              <div class="tab active">👟 Steps</div>
+              <div class="tab">💧 Water</div>
+              <div class="tab">😴 Sleep</div>
+              <div class="tab">🍽 Last Meal</div>
+              <div class="tab">✅ Summary</div>
+            </div>
+            <div class="content">
+              <!-- Steps tab -->
+              <div class="card" style="text-align:center;padding:1.5rem 1rem;">
+                <div style="margin-bottom:.75rem;">
+                  <div style="position:relative;display:inline-flex;">
+                    <svg width="130" height="130" class="progress-ring">
+                      <circle cx="65" cy="65" r="54" fill="none" stroke="#e5e7eb" stroke-width="10"/>
+                      <circle cx="65" cy="65" r="54" fill="none" stroke="#16a34a" stroke-width="10" stroke-dasharray="339" stroke-dashoffset="129" stroke-linecap="round"/>
+                    </svg>
+                    <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                      <div style="font-size:1.5rem;font-weight:900;color:var(--gray-900);">6,234</div>
+                      <div style="font-size:.68rem;color:var(--gray-400);">of 10,000 steps</div>
+                    </div>
+                  </div>
+                </div>
+                <div style="font-size:.78rem;color:var(--gray-500);margin-bottom:1rem;">62% · 3,766 steps to go 🚶</div>
+                <div style="display:flex;gap:.5rem;max-width:280px;margin:0 auto;">
+                  <input class="input" placeholder="Enter step count" value="6234" style="flex:1;text-align:center;font-weight:700;" readonly/>
+                  <button class="btn-primary" style="flex-shrink:0;">Save</button>
+                </div>
+              </div>
+              <div class="card mt-3">
+                <div class="sub-title mb-2">This week</div>
+                <div class="chart-area">
+                  <div class="bar" style="height:50%;"></div>
+                  <div class="bar" style="height:78%;"></div>
+                  <div class="bar" style="height:42%;"></div>
+                  <div class="bar" style="height:89%;"></div>
+                  <div class="bar" style="height:60%;"></div>
+                  <div class="bar active" style="height:62%;"></div>
+                  <div class="bar" style="height:8%;opacity:.3;"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:.6rem;color:var(--gray-400);margin-top:.3rem;"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span style="color:var(--green);font-weight:600;">Today</span><span>Sun</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ RECIPES ═══ -->
+      <div class="screen" id="s-recipes">
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sb-brand"><div class="sb-icon">💚</div><span class="sb-name">WellnessApp</span></div>
+            <div style="padding:.5rem 0;">
+              <div class="sb-link"><span class="ico">📊</span>Dashboard</div>
+              <div class="sb-link act"><span class="ico">🥗</span>Recipes</div>
+              <div class="sb-link"><span class="ico">⚖️</span>BMI & Weight</div>
+              <div class="sb-link"><span class="ico">📱</span>Daily Tracker</div>
+              <div class="sb-link"><span class="ico">🏋️</span>Exercises</div>
+              <div class="sb-link"><span class="ico">💪</span>Workout Planner</div>
+              <div class="sb-link"><span class="ico">📈</span>Progress</div>
+            </div>
+          </div>
+          <div class="main-area">
+            <div class="top-bar"><span class="top-bar-title">Recipe Finder</span><div class="avatar">PS</div></div>
+            <div class="content">
+              <div class="card mb-3">
+                <div class="sub-title mb-2">What's in your kitchen?</div>
+                <div style="display:flex;gap:.5rem;margin-bottom:.6rem;">
+                  <input class="input" placeholder="Add an ingredient..." style="flex:1;" value="spinach" readonly/>
+                  <button class="btn-primary">Add</button>
+                </div>
+                <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.75rem;">
+                  <span class="badge badge-green" style="padding:.25rem .6rem;font-size:.72rem;">🍅 Tomato ✕</span>
+                  <span class="badge badge-green" style="padding:.25rem .6rem;font-size:.72rem;">🧅 Onion ✕</span>
+                  <span class="badge badge-green" style="padding:.25rem .6rem;font-size:.72rem;">🥬 Spinach ✕</span>
+                  <span class="badge badge-green" style="padding:.25rem .6rem;font-size:.72rem;">🧄 Garlic ✕</span>
+                </div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+                  <span style="font-size:.7rem;color:var(--gray-500);">Filter:</span>
+                  <span class="badge badge-blue" style="cursor:pointer;">Vegetarian</span>
+                  <span class="badge badge-gray" style="cursor:pointer;">Vegan</span>
+                  <span class="badge badge-gray" style="cursor:pointer;">Breakfast</span>
+                  <span class="badge badge-gray" style="cursor:pointer;">Indian</span>
+                  <span class="badge badge-gray" style="cursor:pointer;">Quick (< 30 min)</span>
+                </div>
+              </div>
+              <div style="font-size:.8rem;font-weight:600;color:var(--gray-700);margin-bottom:.75rem;">12 recipes found matching your ingredients</div>
+              <div class="grid3">
+                <div class="recipe-card">
+                  <div class="recipe-img">🥘</div>
+                  <div class="recipe-body">
+                    <div class="recipe-name">Palak Paneer</div>
+                    <div class="recipe-meta">🕒 35 min · 4 servings · 280 kcal</div>
+                    <div style="display:flex;gap:.3rem;margin-top:.35rem;"><span class="badge badge-green">Vegetarian</span><span class="badge badge-blue">Indian</span></div>
+                    <div style="font-size:.68rem;color:var(--green);margin-top:.35rem;font-weight:600;">✅ 4/5 ingredients matched</div>
+                  </div>
+                </div>
+                <div class="recipe-card">
+                  <div class="recipe-img" style="background:linear-gradient(135deg,#fef3c7,#fde68a);">🥗</div>
+                  <div class="recipe-body">
+                    <div class="recipe-name">Spinach & Tomato Omelette</div>
+                    <div class="recipe-meta">🕒 15 min · 2 servings · 180 kcal</div>
+                    <div style="display:flex;gap:.3rem;margin-top:.35rem;"><span class="badge badge-green">Vegetarian</span><span class="badge badge-blue">Breakfast</span></div>
+                    <div style="font-size:.68rem;color:var(--green);margin-top:.35rem;font-weight:600;">✅ 3/3 ingredients matched</div>
+                  </div>
+                </div>
+                <div class="recipe-card">
+                  <div class="recipe-img" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe);">🍲</div>
+                  <div class="recipe-body">
+                    <div class="recipe-name">Tomato Garlic Soup</div>
+                    <div class="recipe-meta">🕒 25 min · 3 servings · 120 kcal</div>
+                    <div style="display:flex;gap:.3rem;margin-top:.35rem;"><span class="badge badge-green">Vegan</span><span class="badge badge-blue">Light</span></div>
+                    <div style="font-size:.68rem;color:var(--green);margin-top:.35rem;font-weight:600;">✅ 3/4 ingredients matched</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ EXERCISES ═══ -->
+      <div class="screen" id="s-exercises">
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sb-brand"><div class="sb-icon">💚</div><span class="sb-name">WellnessApp</span></div>
+            <div style="padding:.5rem 0;">
+              <div class="sb-link"><span class="ico">📊</span>Dashboard</div>
+              <div class="sb-link"><span class="ico">🥗</span>Recipes</div>
+              <div class="sb-link"><span class="ico">⚖️</span>BMI & Weight</div>
+              <div class="sb-link"><span class="ico">📱</span>Daily Tracker</div>
+              <div class="sb-link act"><span class="ico">🏋️</span>Exercises</div>
+              <div class="sb-link"><span class="ico">💪</span>Workout Planner</div>
+              <div class="sb-link"><span class="ico">📈</span>Progress</div>
+            </div>
+          </div>
+          <div class="main-area">
+            <div class="top-bar"><span class="top-bar-title">Exercise Library</span><div class="avatar">PS</div></div>
+            <div class="content">
+              <div style="display:flex;gap:.5rem;margin-bottom:.875rem;flex-wrap:wrap;">
+                <input class="input" placeholder="Search exercises..." style="flex:1;max-width:240px;"/>
+                <div style="display:flex;gap:.35rem;flex-wrap:wrap;align-items:center;">
+                  <span class="badge badge-green" style="cursor:pointer;font-size:.72rem;padding:.3rem .7rem;">All</span>
+                  <span class="badge badge-gray" style="cursor:pointer;font-size:.72rem;padding:.3rem .7rem;">Core</span>
+                  <span class="badge badge-gray" style="cursor:pointer;font-size:.72rem;padding:.3rem .7rem;">Chest</span>
+                  <span class="badge badge-gray" style="cursor:pointer;font-size:.72rem;padding:.3rem .7rem;">Legs</span>
+                  <span class="badge badge-gray" style="cursor:pointer;font-size:.72rem;padding:.3rem .7rem;">Yoga</span>
+                  <span class="badge badge-gray" style="cursor:pointer;font-size:.72rem;padding:.3rem .7rem;">Stamina</span>
+                  <span class="badge badge-gray" style="cursor:pointer;font-size:.72rem;padding:.3rem .7rem;">Pelvic Floor</span>
+                </div>
+              </div>
+              <div class="grid3" style="gap:.6rem;">
+                <div class="ex-card"><div class="ex-img" style="background:#dcfce7;">🏋️</div><div class="ex-body"><div class="ex-name">Push-up</div><div class="ex-cat">Chest · Beginner</div><span class="badge badge-green" style="margin-top:.25rem;">No equipment</span></div></div>
+                <div class="ex-card"><div class="ex-img" style="background:#e0f2fe;">🧘</div><div class="ex-body"><div class="ex-name">Plank Hold</div><div class="ex-cat">Core · Beginner</div><span class="badge badge-green" style="margin-top:.25rem;">No equipment</span></div></div>
+                <div class="ex-card"><div class="ex-img" style="background:#fef3c7;">🦵</div><div class="ex-body"><div class="ex-name">Bodyweight Squat</div><div class="ex-cat">Legs · Beginner</div><span class="badge badge-green" style="margin-top:.25rem;">No equipment</span></div></div>
+                <div class="ex-card"><div class="ex-img" style="background:#ede9fe;">🧘‍♀️</div><div class="ex-body"><div class="ex-name">Mountain Climber</div><div class="ex-cat">Cardio · Intermediate</div><span class="badge badge-blue" style="margin-top:.25rem;">Mat</span></div></div>
+                <div class="ex-card"><div class="ex-img" style="background:#fce7f3;">💪</div><div class="ex-body"><div class="ex-name">Dumbbell Row</div><div class="ex-cat">Back · Intermediate</div><span class="badge badge-amber" style="margin-top:.25rem;">Dumbbell</span></div></div>
+                <div class="ex-card"><div class="ex-img" style="background:#d1fae5;">🌿</div><div class="ex-body"><div class="ex-name">Child's Pose</div><div class="ex-cat">Yoga · Beginner</div><span class="badge badge-green" style="margin-top:.25rem;">Mat</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ WORKOUT PLANNER ═══ -->
+      <div class="screen" id="s-workout">
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sb-brand"><div class="sb-icon">💚</div><span class="sb-name">WellnessApp</span></div>
+            <div style="padding:.5rem 0;">
+              <div class="sb-link"><span class="ico">📊</span>Dashboard</div>
+              <div class="sb-link"><span class="ico">🥗</span>Recipes</div>
+              <div class="sb-link"><span class="ico">⚖️</span>BMI & Weight</div>
+              <div class="sb-link"><span class="ico">📱</span>Daily Tracker</div>
+              <div class="sb-link"><span class="ico">🏋️</span>Exercises</div>
+              <div class="sb-link act"><span class="ico">💪</span>Workout Planner</div>
+              <div class="sb-link"><span class="ico">📈</span>Progress</div>
+            </div>
+          </div>
+          <div class="main-area">
+            <div class="top-bar"><span class="top-bar-title">Workout Planner</span><div class="avatar">PS</div></div>
+            <div class="content">
+              <div class="grid2" style="align-items:start;">
+                <div class="card">
+                  <div class="sub-title mb-2">Generate my workout plan</div>
+                  <div style="display:flex;flex-direction:column;gap:.6rem;">
+                    <div><span class="label">Fitness goal</span>
+                      <select class="input"><option>General Wellness</option></select>
+                    </div>
+                    <div><span class="label">Fitness level</span>
+                      <div style="display:flex;gap:.4rem;">
+                        <button class="btn-outline" style="flex:1;font-size:.72rem;padding:.3rem .5rem;">Beginner</button>
+                        <button class="btn-primary" style="flex:1;font-size:.72rem;padding:.3rem .5rem;">Intermediate</button>
+                        <button class="btn-outline" style="flex:1;font-size:.72rem;padding:.3rem .5rem;">Advanced</button>
+                      </div>
+                    </div>
+                    <div><span class="label">Duration</span>
+                      <select class="input"><option>30 minutes</option></select>
+                    </div>
+                    <div><span class="label">Equipment available</span>
+                      <div style="display:flex;gap:.3rem;flex-wrap:wrap;">
+                        <span class="badge badge-green" style="cursor:pointer;padding:.25rem .5rem;">No equipment</span>
+                        <span class="badge badge-gray" style="cursor:pointer;padding:.25rem .5rem;">Dumbbells</span>
+                        <span class="badge badge-gray" style="cursor:pointer;padding:.25rem .5rem;">Resistance band</span>
+                        <span class="badge badge-gray" style="cursor:pointer;padding:.25rem .5rem;">Mat</span>
+                      </div>
+                    </div>
+                    <label style="display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--gray-700);cursor:pointer;"><input type="checkbox"/> Low impact only</label>
+                    <button class="btn-primary" style="width:100%;justify-content:center;">🤖 Generate with AI</button>
+                  </div>
+                </div>
+                <div>
+                  <div class="card mb-2" style="background:linear-gradient(135deg,var(--green-l),white);border-color:#bbf7d0;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;">
+                      <div><div style="font-size:.85rem;font-weight:700;">General Wellness · 30 min</div><div style="font-size:.7rem;color:var(--gray-500);">Intermediate · No equipment · AI generated</div></div>
+                      <button class="btn-primary" style="font-size:.7rem;padding:.3rem .7rem;">▶ Start</button>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:.5rem;">
+                      <div style="font-size:.72rem;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.05em;">🌅 Warm-up (5 min)</div>
+                      <div class="card-sm" style="display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:.78rem;font-weight:600;">Jumping Jacks</div><div style="font-size:.68rem;color:var(--gray-400);">2 sets × 30 sec</div></div><span class="badge badge-green">Cardio</span></div>
+                      <div class="card-sm" style="display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:.78rem;font-weight:600;">Arm Circles</div><div style="font-size:.68rem;color:var(--gray-400);">2 sets × 30 sec</div></div><span class="badge badge-blue">Mobility</span></div>
+                      <div style="font-size:.72rem;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.05em;margin-top:.25rem;">💪 Main Set (20 min)</div>
+                      <div class="card-sm" style="display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:.78rem;font-weight:600;">Push-ups</div><div style="font-size:.68rem;color:var(--gray-400);">3 sets × 12 reps</div></div><span class="badge badge-amber">Chest</span></div>
+                      <div class="card-sm" style="display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:.78rem;font-weight:600;">Bodyweight Squats</div><div style="font-size:.68rem;color:var(--gray-400);">3 sets × 15 reps</div></div><span class="badge badge-amber">Legs</span></div>
+                      <div class="card-sm" style="display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:.78rem;font-weight:600;">Plank Hold</div><div style="font-size:.68rem;color:var(--gray-400);">3 sets × 30 sec</div></div><span class="badge badge-amber">Core</span></div>
+                      <div style="font-size:.72rem;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.05em;margin-top:.25rem;">🌙 Cool-down (5 min)</div>
+                      <div class="card-sm" style="display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:.78rem;font-weight:600;">Child's Pose</div><div style="font-size:.68rem;color:var(--gray-400);">1 min hold</div></div><span class="badge badge-green">Yoga</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ WELLNESSBOT ═══ -->
+      <div class="screen" id="s-coach">
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sb-brand"><div class="sb-icon">💚</div><span class="sb-name">WellnessApp</span></div>
+            <div style="padding:.5rem 0;">
+              <div class="sb-link"><span class="ico">📊</span>Dashboard</div>
+              <div class="sb-link"><span class="ico">🥗</span>Recipes</div>
+              <div class="sb-link"><span class="ico">⚖️</span>BMI & Weight</div>
+              <div class="sb-link"><span class="ico">📱</span>Daily Tracker</div>
+              <div class="sb-link"><span class="ico">🏋️</span>Exercises</div>
+              <div class="sb-link"><span class="ico">💪</span>Workout Planner</div>
+              <div class="sb-link act"><span class="ico">🤖</span>WellnessBot</div>
+            </div>
+          </div>
+          <div class="main-area" style="display:flex;flex-direction:column;min-height:0;">
+            <div class="top-bar"><span class="top-bar-title">WellnessBot — AI Wellness Assistant</span><div class="avatar">PS</div></div>
+            <div class="chat-wrap" style="flex:1;min-height:0;">
+              <div class="chat-disclaimer">⚕️ WellnessBot provides general wellness information only. For medical emergencies, contact emergency services immediately. <strong>Not a substitute for professional medical advice.</strong></div>
+              <div class="chat-msgs">
+                <div class="msg-bot">
+                  <div class="bot-label"><div class="bot-avatar">W</div><span style="font-size:.68rem;font-weight:600;color:var(--gray-600);">WellnessBot</span></div>
+                  <div class="msg-bubble">Hi Priya! 👋 I'm WellnessBot, your AI wellness assistant. I can help with general health tips, meal ideas, workout suggestions, and much more. What would you like to explore today?</div>
+                  <div class="msg-time">10:23 AM</div>
+                </div>
+                <div class="msg-user">
+                  <div class="msg-bubble">I'm trying to maintain my weight at 58 kg. What kind of meals should I focus on?</div>
+                  <div class="msg-time">10:24 AM</div>
+                </div>
+                <div class="msg-bot">
+                  <div class="bot-label"><div class="bot-avatar">W</div><span style="font-size:.68rem;font-weight:600;color:var(--gray-600);">WellnessBot</span></div>
+                  <div class="msg-bubble">Great goal, Priya! For weight maintenance at your current BMI of 22.1 (healthy range), I'd suggest focusing on:<br/><br/>🥗 <strong>Balanced plate approach:</strong> Fill half your plate with vegetables, a quarter with lean protein, and a quarter with whole grains.<br/><br/>🌾 <strong>High-fibre foods:</strong> Dal, rajma, oats, and leafy greens help keep you full longer.<br/><br/>💧 <strong>Stay hydrated:</strong> You're already close to your water goal — keep it up!<br/><br/>Research suggests that maintaining regular meal times also helps regulate hunger. Would you like some specific recipe ideas using ingredients you have at home?</div>
+                  <div class="msg-time">10:24 AM</div>
+                </div>
+              </div>
+              <div class="quick-chips">
+                <span class="chip">🍽 Meal ideas for my goals</span>
+                <span class="chip">💪 Suggest a workout</span>
+                <span class="chip">😴 Improve my sleep</span>
+                <span class="chip">📊 Explain my BMI</span>
+                <span class="chip">🧘 Manage stress</span>
+              </div>
+              <div class="chat-input-row">
+                <input class="chat-input" placeholder="Ask WellnessBot anything about health & wellness..."/>
+                <button class="send-btn">➤</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ PROGRESS ═══ -->
+      <div class="screen" id="s-progress">
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sb-brand"><div class="sb-icon">💚</div><span class="sb-name">WellnessApp</span></div>
+            <div style="padding:.5rem 0;">
+              <div class="sb-link"><span class="ico">📊</span>Dashboard</div>
+              <div class="sb-link"><span class="ico">🥗</span>Recipes</div>
+              <div class="sb-link"><span class="ico">⚖️</span>BMI & Weight</div>
+              <div class="sb-link"><span class="ico">📱</span>Daily Tracker</div>
+              <div class="sb-link"><span class="ico">🏋️</span>Exercises</div>
+              <div class="sb-link"><span class="ico">💪</span>Workout Planner</div>
+              <div class="sb-link act"><span class="ico">📈</span>Progress</div>
+            </div>
+          </div>
+          <div class="main-area">
+            <div class="top-bar"><span class="top-bar-title">Progress Reports</span><div class="avatar">PS</div></div>
+            <div class="content">
+              <div class="grid4 mb-3">
+                <div class="card-sm kpi-mini"><div class="kpi-val">-2.4 kg</div><div class="kpi-lbl">Weight lost (90d)</div></div>
+                <div class="card-sm kpi-mini"><div class="kpi-val">🔥 12</div><div class="kpi-lbl">Day streak</div></div>
+                <div class="card-sm kpi-mini"><div class="kpi-val">7,100</div><div class="kpi-lbl">Avg daily steps</div></div>
+                <div class="card-sm kpi-mini"><div class="kpi-val">7h 20m</div><div class="kpi-lbl">Avg nightly sleep</div></div>
+              </div>
+              <div class="grid2">
+                <div class="card">
+                  <div class="sub-title mb-2">Weight trend (last 3 months)</div>
+                  <svg viewBox="0 0 300 80" style="width:100%;height:72px;">
+                    <path d="M0,70 C50,68 80,65 120,58 S200,42 300,34" fill="none" stroke="#dcfce7" stroke-width="10"/>
+                    <path d="M0,70 C50,68 80,65 120,58 S200,42 300,34" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/>
+                  </svg>
+                  <div style="display:flex;justify-content:space-between;font-size:.62rem;color:var(--gray-400);margin-top:.25rem;"><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span></div>
+                  <div style="font-size:.7rem;color:var(--green);font-weight:600;margin-top:.3rem;">↓ 2.4 kg lost · Consistent downward trend 🎉</div>
+                </div>
+                <div class="card">
+                  <div class="sub-title mb-2">Habit completion (last 7 days)</div>
+                  <div class="chart-area" style="height:65px;">
+                    <div class="bar" style="height:75%;"></div>
+                    <div class="bar" style="height:100%;background:var(--green);"></div>
+                    <div class="bar" style="height:50%;"></div>
+                    <div class="bar" style="height:100%;background:var(--green);"></div>
+                    <div class="bar" style="height:75%;"></div>
+                    <div class="bar active" style="height:75%;"></div>
+                    <div class="bar" style="height:10%;opacity:.3;"></div>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;font-size:.6rem;color:var(--gray-400);margin-top:.3rem;"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span style="color:var(--green);">Sat</span><span>Sun</span></div>
+                </div>
+              </div>
+              <div class="card mt-3">
+                <div class="sub-title mb-2">Milestones 🏆</div>
+                <div style="display:flex;flex-direction:column;gap:.5rem;">
+                  <div style="display:flex;align-items:center;gap:.6rem;background:var(--green-l);border-radius:8px;padding:.6rem .75rem;"><span style="font-size:1.1rem;">🏅</span><div><div style="font-size:.78rem;font-weight:600;">First 10,000-step day!</div><div style="font-size:.68rem;color:var(--gray-500);">Sep 14, 2026</div></div></div>
+                  <div style="display:flex;align-items:center;gap:.6rem;background:var(--green-l);border-radius:8px;padding:.6rem .75rem;"><span style="font-size:1.1rem;">🏅</span><div><div style="font-size:.78rem;font-weight:600;">7-day habit streak achieved</div><div style="font-size:.68rem;color:var(--gray-500);">Oct 10, 2026</div></div></div>
+                  <div style="display:flex;align-items:center;gap:.6rem;background:#fef3c7;border-radius:8px;padding:.6rem .75rem;"><span style="font-size:1.1rem;">🎯</span><div><div style="font-size:.78rem;font-weight:600;">BMI goal: maintain healthy weight</div><div style="font-size:.68rem;color:var(--gray-500);">In progress · BMI 22.1 ✅</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ SETTINGS ═══ -->
+      <div class="screen" id="s-settings">
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sb-brand"><div class="sb-icon">💚</div><span class="sb-name">WellnessApp</span></div>
+            <div style="padding:.5rem 0;">
+              <div class="sb-link"><span class="ico">📊</span>Dashboard</div>
+              <div class="sb-link"><span class="ico">📈</span>Progress</div>
+              <div class="sb-link act"><span class="ico">⚙️</span>Settings</div>
+            </div>
+          </div>
+          <div class="main-area">
+            <div class="top-bar"><span class="top-bar-title">Settings</span><div class="avatar">PS</div></div>
+            <div class="content">
+              <div class="grid2" style="align-items:start;">
+                <div style="display:flex;flex-direction:column;gap:.35rem;">
+                  <div class="settings-link act">👤 Profile</div>
+                  <div class="settings-link">🎯 Goals & Targets</div>
+                  <div class="settings-link">🔔 Reminders</div>
+                  <div class="settings-link">🔒 Privacy & Data</div>
+                  <div class="settings-link">🎨 Appearance</div>
+                  <div class="settings-link" style="color:#ef4444;">🗑 Delete account</div>
+                </div>
+                <div class="card">
+                  <div class="sub-title mb-3">Edit Profile</div>
+                  <div style="display:flex;flex-direction:column;gap:.6rem;">
+                    <div><span class="label">Full name</span><input class="input" value="Priya Sharma" readonly/></div>
+                    <div class="grid2">
+                      <div><span class="label">Age</span><input class="input" value="28" readonly/></div>
+                      <div><span class="label">Gender</span><select class="input"><option>Female</option></select></div>
+                    </div>
+                    <div class="grid2">
+                      <div><span class="label">Height (cm)</span><input class="input" value="162" readonly/></div>
+                      <div><span class="label">Weight (kg)</span><input class="input" value="58" readonly/></div>
+                    </div>
+                    <div><span class="label">Dietary preference</span><select class="input"><option>Vegetarian</option></select></div>
+                    <div><span class="label">Fitness goal</span><select class="input"><option>Weight Maintenance</option></select></div>
+                    <button class="btn-primary" style="width:100%;justify-content:center;">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /browser-body -->
+  </div><!-- /browser -->
+
+  <!-- Mobile phone frame (hidden by default) -->
+  <div id="phone-frame" style="display:none;flex:1;overflow-y:auto;">
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-notch"><div class="notch-bar"></div></div>
+        <div id="phone-body" style="flex:1;overflow-y:auto;background:white;display:flex;flex-direction:column;min-height:600px;">
+          <!-- Mobile content injected by JS -->
+          <div style="flex:1;overflow-y:auto;" id="mobile-content"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /workspace -->
+
+<script>
+let currentScreen = 'landing'
+let viewMode = 'desktop'
+
+function show(id, btn, url, title) {
+  // Hide all
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('visible'))
+  // Show target
+  const target = document.getElementById('s-' + id)
+  if (target) target.classList.add('visible')
+  // Update buttons
+  document.querySelectorAll('.screen-btn').forEach(b => b.classList.remove('active'))
+  if (btn) btn.classList.add('active')
+  // Update URL bar
+  document.getElementById('browser-url').textContent = 'https://wellnessapp.com' + url
+  document.getElementById('ws-url').textContent = 'https://wellnessapp.com' + url
+  document.getElementById('ws-title').textContent = title
+  currentScreen = id
+
+  if (viewMode === 'mobile') renderMobile(id)
+}
+
+function setView(mode) {
+  viewMode = mode
+  document.getElementById('btn-desktop').classList.toggle('active', mode === 'desktop')
+  document.getElementById('btn-mobile').classList.toggle('active', mode === 'mobile')
+  document.getElementById('browser-frame').style.display = mode === 'desktop' ? 'flex' : 'none'
+  document.getElementById('phone-frame').style.display = mode === 'mobile' ? 'flex' : 'none'
+  if (mode === 'mobile') renderMobile(currentScreen)
+}
+
+function renderMobile(id) {
+  const mc = document.getElementById('mobile-content')
+  const src = document.getElementById('s-' + id)
+  if (!src) return
+
+  // For mobile, extract just the main-area content (no sidebar)
+  const mainArea = src.querySelector('.main-area')
+  if (mainArea) {
+    mc.innerHTML = mainArea.innerHTML
+    // Add bottom nav
+    mc.insertAdjacentHTML('beforeend', `
+      <div class="bottom-nav">
+        <div class="bn-item ${id==='dashboard'?'act':''}"><div class="bn-ico">📊</div><div class="bn-lbl">Home</div></div>
+        <div class="bn-item ${id==='tracker'?'act':''}"><div class="bn-ico">📱</div><div class="bn-lbl">Tracker</div></div>
+        <div class="bn-item ${id==='recipes'?'act':''}"><div class="bn-ico">🥗</div><div class="bn-lbl">Recipes</div></div>
+        <div class="bn-item ${id==='exercises'?'act':''}"><div class="bn-ico">🏋️</div><div class="bn-lbl">Exercises</div></div>
+        <div class="bn-item"><div class="bn-ico">···</div><div class="bn-lbl">More</div></div>
+      </div>`)
+  } else {
+    // Auth pages — show as-is
+    mc.innerHTML = src.innerHTML
+  }
+}
+</script>
+</body>
+</html>

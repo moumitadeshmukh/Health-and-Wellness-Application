@@ -1,0 +1,14 @@
+# Copy this file to ".env" (same folder) and fill in values. All settings are optional.
+
+# Port the app runs on -> http://localhost:3000
+PORT=3000
+
+# Optional: enable the Claude-powered AI coach, meal plans and workout picks.
+# Get a key at https://console.anthropic.com  (leave empty to use built-in rule-based answers)
+ANTHROPIC_API_KEY=
+
+# Claude model to use
+AI_MODEL=claude-sonnet-5-5
+
+# Max AI requests per user per day
+AI_DAILY_LIMIT=50

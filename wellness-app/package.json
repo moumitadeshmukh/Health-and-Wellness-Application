@@ -1,0 +1,17 @@
+{
+  "name": "wellness-app",
+  "version": "0.3.0",
+  "description": "WellnessApp - AI-powered health, nutrition and fitness tracker (local edition, zero dependencies)",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "reset-data": "node server.js --reset"
+  },
+  "engines": {
+    "node": ">=18.17"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}

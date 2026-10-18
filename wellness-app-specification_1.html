@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WellnessApp — Project Specification</title>
+<style>
+  :root {
+    --green:       #16a34a;
+    --green-light: #dcfce7;
+    --green-dark:  #14532d;
+    --blue:        #0ea5e9;
+    --blue-light:  #e0f2fe;
+    --amber:       #d97706;
+    --amber-light: #fef3c7;
+    --red:         #dc2626;
+    --red-light:   #fee2e2;
+    --purple:      #7c3aed;
+    --purple-light:#ede9fe;
+    --gray-50:     #f9fafb;
+    --gray-100:    #f3f4f6;
+    --gray-200:    #e5e7eb;
+    --gray-400:    #9ca3af;
+    --gray-500:    #6b7280;
+    --gray-700:    #374151;
+    --gray-900:    #111827;
+    --sidebar-w:   260px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--gray-50); color: var(--gray-900); display: flex; min-height: 100vh; }
+
+  /* ── Sidebar ── */
+  #sidebar {
+    width: var(--sidebar-w); min-width: var(--sidebar-w);
+    background: white; border-right: 1px solid var(--gray-200);
+    position: fixed; top: 0; left: 0; height: 100vh;
+    overflow-y: auto; z-index: 100; padding-bottom: 2rem;
+  }
+  .sidebar-brand {
+    padding: 1.25rem 1.25rem 1rem;
+    border-bottom: 1px solid var(--gray-200);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .brand-icon {
+    width: 36px; height: 36px; background: var(--green);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .brand-icon svg { width: 20px; height: 20px; }
+  .brand-name { font-weight: 700; font-size: 0.95rem; color: var(--gray-900); line-height: 1.2; }
+  .brand-sub  { font-size: 0.7rem; color: var(--gray-400); }
+  .sidebar-section { padding: 0.75rem 1rem 0.25rem; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-400); }
+  .sidebar-link {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.45rem 1rem 0.45rem 1.25rem;
+    font-size: 0.8rem; color: var(--gray-700);
+    text-decoration: none; border-left: 3px solid transparent;
+    transition: all 0.15s;
+  }
+  .sidebar-link:hover { background: var(--gray-50); color: var(--green); border-left-color: var(--green); }
+  .sidebar-link.active { background: var(--green-light); color: var(--green-dark); border-left-color: var(--green); font-weight: 600; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+  /* ── Main ── */
+  #main { margin-left: var(--sidebar-w); flex: 1; padding: 2.5rem 3rem; max-width: 960px; }
+
+  /* ── Sections ── */
+  .spec-section { margin-bottom: 3rem; scroll-margin-top: 1rem; }
+  .section-header {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 1rem 1.25rem; border-radius: 12px; margin-bottom: 1.5rem;
+  }
+  .section-header h2 { font-size: 1.35rem; font-weight: 700; }
+  .section-header .badge {
+    font-size: 0.65rem; font-weight: 700; padding: 2px 8px;
+    border-radius: 999px; letter-spacing: 0.05em; text-transform: uppercase;
+    margin-left: auto;
+  }
+  .sh-green  { background: var(--green-light);  color: var(--green-dark); }
+  .sh-blue   { background: var(--blue-light);   color: #075985; }
+  .sh-amber  { background: var(--amber-light);  color: #92400e; }
+  .sh-purple { background: var(--purple-light); color: #4c1d95; }
+  .sh-red    { background: var(--red-light);    color: #991b1b; }
+
+  h3 { font-size: 1rem; font-weight: 600; color: var(--gray-900); margin: 1.5rem 0 0.6rem; }
+  h4 { font-size: 0.875rem; font-weight: 600; color: var(--gray-700); margin: 1rem 0 0.4rem; }
+  p  { font-size: 0.875rem; color: var(--gray-700); line-height: 1.65; margin-bottom: 0.75rem; }
+  ul, ol { padding-left: 1.4rem; font-size: 0.875rem; color: var(--gray-700); line-height: 1.75; margin-bottom: 0.75rem; }
+
+  /* ── Card ── */
+  .card { background: white; border: 1px solid var(--gray-200); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1rem; }
+
+  /* ── Tables ── */
+  .tbl-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--gray-200); margin-bottom: 1.25rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+  thead tr { background: var(--gray-100); }
+  th { padding: 0.6rem 0.85rem; text-align: left; font-weight: 600; color: var(--gray-700); white-space: nowrap; border-bottom: 1px solid var(--gray-200); }
+  td { padding: 0.55rem 0.85rem; color: var(--gray-700); border-bottom: 1px solid var(--gray-100); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--gray-50); }
+
+  /* ── Badges ── */
+  .badge { display: inline-block; font-size: 0.68rem; font-weight: 600; padding: 2px 7px; border-radius: 999px; white-space: nowrap; }
+  .p0  { background: #fee2e2; color: #991b1b; }
+  .p1  { background: #fef3c7; color: #92400e; }
+  .p2  { background: #e0f2fe; color: #075985; }
+  .tag-green  { background: var(--green-light);  color: var(--green-dark); }
+  .tag-blue   { background: var(--blue-light);   color: #0369a1; }
+  .tag-purple { background: var(--purple-light); color: #6d28d9; }
+  .tag-amber  { background: var(--amber-light);  color: #b45309; }
+  .tag-red    { background: var(--red-light);    color: #b91c1c; }
+
+  /* ── Code ── */
+  pre { background: #1e293b; color: #e2e8f0; padding: 1rem 1.25rem; border-radius: 10px; font-size: 0.78rem; overflow-x: auto; line-height: 1.6; margin-bottom: 1rem; }
+  code { font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace; }
+  .inline-code { background: var(--gray-100); color: #be185d; padding: 1px 6px; border-radius: 4px; font-size: 0.8rem; font-family: monospace; }
+
+  /* ── Feature grid ── */
+  .feat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.75rem; margin-bottom: 1.25rem; }
+  .feat-card { background: white; border: 1px solid var(--gray-200); border-radius: 10px; padding: 1rem; }
+  .feat-card h4 { margin: 0 0 0.3rem; font-size: 0.825rem; }
+  .feat-card p  { margin: 0; font-size: 0.77rem; color: var(--gray-500); }
+
+  /* ── Endpoint list ── */
+  .endpoint { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid var(--gray-100); }
+  .endpoint:last-child { border-bottom: none; }
+  .method { font-size: 0.68rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; flex-shrink: 0; margin-top: 1px; font-family: monospace; }
+  .GET    { background: #dcfce7; color: #166534; }
+  .POST   { background: #dbeafe; color: #1e40af; }
+  .PATCH  { background: #fef3c7; color: #92400e; }
+  .DELETE { background: #fee2e2; color: #991b1b; }
+  .PUT    { background: #ede9fe; color: #5b21b6; }
+  .ep-path { font-family: monospace; font-size: 0.8rem; color: var(--gray-900); }
+  .ep-desc { font-size: 0.775rem; color: var(--gray-500); }
+
+  /* ── Alert ── */
+  .alert { padding: 0.8rem 1rem; border-radius: 8px; font-size: 0.825rem; margin-bottom: 1rem; border-left: 4px solid; line-height: 1.6; }
+  .alert-amber { background: var(--amber-light); border-color: var(--amber); color: #92400e; }
+  .alert-green { background: var(--green-light); border-color: var(--green); color: var(--green-dark); }
+  .alert-red   { background: var(--red-light);   border-color: var(--red);   color: #991b1b; }
+  .alert-blue  { background: var(--blue-light);  border-color: var(--blue);  color: #0c4a6e; }
+
+  /* ── Phase timeline ── */
+  .phases { display: flex; flex-direction: column; gap: 0.75rem; }
+  .phase { display: flex; gap: 1rem; align-items: flex-start; }
+  .phase-num { width: 32px; height: 32px; border-radius: 50%; background: var(--green); color: white; font-weight: 700; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .phase-body h4 { margin: 0.2rem 0 0.2rem; font-size: 0.875rem; }
+  .phase-body p  { margin: 0; font-size: 0.8rem; color: var(--gray-500); }
+
+  /* ── KPI cards ── */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 0.75rem; margin-bottom: 1.25rem; }
+  .kpi-card { background: white; border: 1px solid var(--gray-200); border-radius: 10px; padding: 1rem; text-align: center; }
+  .kpi-val  { font-size: 1.6rem; font-weight: 800; color: var(--green); }
+  .kpi-label{ font-size: 0.75rem; color: var(--gray-500); margin-top: 0.25rem; }
+
+  /* ── Safety keywords ── */
+  .kw-list { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+  .kw { background: var(--red-light); color: var(--red); font-size: 0.75rem; padding: 2px 8px; border-radius: 999px; font-family: monospace; }
+
+  /* ── Page header ── */
+  .page-hero { background: linear-gradient(135deg, var(--green) 0%, #059669 100%); color: white; border-radius: 16px; padding: 2rem 2.5rem; margin-bottom: 2.5rem; }
+  .page-hero h1 { font-size: 1.85rem; font-weight: 800; margin-bottom: 0.4rem; }
+  .page-hero p  { font-size: 0.9rem; opacity: 0.85; line-height: 1.6; }
+  .meta-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  .meta-pill  { background: rgba(255,255,255,0.2); color: white; font-size: 0.72rem; padding: 3px 10px; border-radius: 999px; }
+
+  /* ── Scroll top ── */
+  .back-top { display: block; text-align: right; font-size: 0.75rem; color: var(--gray-400); margin-top: 1rem; text-decoration: none; }
+  .back-top:hover { color: var(--green); }
+
+  @media (max-width: 900px) {
+    #sidebar { display: none; }
+    #main { margin-left: 0; padding: 1.5rem; }
+  }
+  @media print {
+    #sidebar { display: none; }
+    #main { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ SIDEBAR ═══════════════════ -->
+<nav id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon">
+      <svg fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+      </svg>
+    </div>
+    <div>
+      <div class="brand-name">WellnessApp</div>
+      <div class="brand-sub">Project Specification v0.3</div>
+    </div>
+  </div>
+
+  <div class="sidebar-section">Overview</div>
+  <a class="sidebar-link" href="#vision"><span class="dot"></span>Vision & Problem</a>
+  <a class="sidebar-link" href="#personas"><span class="dot"></span>User Personas</a>
+  <a class="sidebar-link" href="#goals"><span class="dot"></span>Goals & Non-Goals</a>
+  <a class="sidebar-link" href="#features"><span class="dot"></span>Core Features (MVP)</a>
+  <a class="sidebar-link" href="#kpis"><span class="dot"></span>Success Metrics</a>
+  <a class="sidebar-link" href="#phases"><span class="dot"></span>Development Phases</a>
+
+  <div class="sidebar-section">Technical</div>
+  <a class="sidebar-link" href="#techstack"><span class="dot"></span>Tech Stack</a>
+  <a class="sidebar-link" href="#architecture"><span class="dot"></span>Architecture</a>
+  <a class="sidebar-link" href="#datamodel"><span class="dot"></span>Data Model</a>
+  <a class="sidebar-link" href="#api"><span class="dot"></span>API Endpoints</a>
+
+  <div class="sidebar-section">Frontend</div>
+  <a class="sidebar-link" href="#design"><span class="dot"></span>Design System</a>
+  <a class="sidebar-link" href="#pages"><span class="dot"></span>Pages & Screens</a>
+  <a class="sidebar-link" href="#navigation"><span class="dot"></span>Navigation</a>
+  <a class="sidebar-link" href="#responsive"><span class="dot"></span>Responsive Strategy</a>
+
+  <div class="sidebar-section">AI Assistant</div>
+  <a class="sidebar-link" href="#ai-overview"><span class="dot"></span>AI Overview</a>
+  <a class="sidebar-link" href="#ai-capabilities"><span class="dot"></span>Capabilities</a>
+  <a class="sidebar-link" href="#ai-safety"><span class="dot"></span>Safety & Guardrails</a>
+  <a class="sidebar-link" href="#ai-tech"><span class="dot"></span>AI Architecture</a>
+
+  <div class="sidebar-section">Safety & Privacy</div>
+  <a class="sidebar-link" href="#safety"><span class="dot"></span>Health & Safety Rules</a>
+  <a class="sidebar-link" href="#privacy"><span class="dot"></span>Privacy & Compliance</a>
+</nav>
+
+<!-- ═══════════════════ MAIN ═══════════════════ -->
+<main id="main">
+
+  <!-- Hero -->
+  <div class="page-hero">
+    <h1>🌿 WellnessApp — Project Specification</h1>
+    <p>AI-Powered Health, Nutrition & Fitness Web Application. A single platform for BMI tracking, recipe discovery, daily habit monitoring, exercise guidance, and AI-powered wellness coaching.</p>
+    <div class="meta-pills">
+      <span class="meta-pill">📄 Spec v0.3</span>
+      <span class="meta-pill">📅 2026-10-16</span>
+      <span class="meta-pill">⚡ Status: Draft</span>
+      <span class="meta-pill">🛠 Next.js 14 + Supabase</span>
+      <span class="meta-pill">🤖 Claude AI</span>
+    </div>
+  </div>
+
+  <!-- ─── VISION ─── -->
+  <section class="spec-section" id="vision">
+    <div class="section-header sh-green">
+      <span>🎯</span><h2>Vision & Problem Statement</h2>
+      <span class="badge tag-green">Goal Spec §1–2</span>
+    </div>
+    <div class="card">
+      <h3>Vision</h3>
+      <p>Build a modern, responsive, personalized health, nutrition, and fitness web application that works seamlessly on desktop, tablet, and mobile devices. The application helps users manage their daily nutrition, monitor weight and BMI, track healthy habits, discover recipes using ingredients available at home, and follow personalized exercise routines — all within a single, clean, attractive, and easy-to-use platform.</p>
+    </div>
+    <div class="card">
+      <h3>Problem Statement</h3>
+      <p>People often struggle to manage their nutrition, weight, exercise routines, hydration, sleep, and daily physical activity because these activities are spread across multiple applications or tracked manually. Existing fitness applications may focus on only one aspect of wellness, offer generic recommendations, or require users to plan meals and workouts separately.</p>
+      <p>This application addresses these challenges by bringing nutrition planning, ingredient-based recipe suggestions, weight management, daily health tracking, and categorized exercise routines into a single platform. It aims to make healthy living more accessible, personalized, and sustainable.</p>
+    </div>
+  </section>
+
+  <!-- ─── PERSONAS ─── -->
+  <section class="spec-section" id="personas">
+    <div class="section-header sh-blue">
+      <span>👥</span><h2>Target Users / Personas</h2>
+      <span class="badge tag-blue">Goal Spec §3</span>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Persona</th><th>Primary Goal</th><th>Key Pain Point</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Busy Professional</strong></td><td>Maintain health through quick recipes, short workouts, daily habit tracking</td><td>Lack of time, inconsistent routines, juggling multiple apps</td></tr>
+          <tr><td><strong>Fitness Beginner</strong></td><td>Improve fitness, manage weight, develop sustainable exercise habits</td><td>Uncertainty about which exercises to do and how to track progress</td></tr>
+          <tr><td><strong>Weight Management Seeker</strong></td><td>Track weight, understand healthy weight range, follow sustainable plans</td><td>Confusion about BMI and unrealistic weight-loss advice</td></tr>
+          <tr><td><strong>Home Cook / Health-Conscious Eater</strong></td><td>Discover recipes, reduce food waste, make balanced meals</td><td>Not knowing what to cook with available ingredients</td></tr>
+          <tr><td><strong>Health-Conscious Routine Builder</strong></td><td>Build consistent daily routines around hydration, sleep, steps</td><td>Forgetting to log activities, limited visibility into long-term habits</td></tr>
+          <tr><td><strong>Targeted Fitness Enthusiast</strong></td><td>Find categorized exercises for specific goals (core, pelvic floor, stamina)</td><td>Finding reliable instructions and safe modifications</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ─── GOALS ─── -->
+  <section class="spec-section" id="goals">
+    <div class="section-header sh-green">
+      <span>✅</span><h2>Goals & Non-Goals</h2>
+      <span class="badge tag-green">Goal Spec §4</span>
+    </div>
+    <h3>Goals</h3>
+    <div class="feat-grid">
+      <div class="feat-card"><h4>G1 — Responsive App</h4><p>Works on desktop, tablet, and mobile with intuitive navigation</p></div>
+      <div class="feat-card"><h4>G2 — BMI & Weight</h4><p>Calculate BMI, healthy weight range, goals, and track changes</p></div>
+      <div class="feat-card"><h4>G3 — Daily Tracking</h4><p>Steps, water, food, sleep, wake-up time, last meal time</p></div>
+      <div class="feat-card"><h4>G4 — Smart Recipes</h4><p>Ingredient-based recipe finder with Indian & international meals</p></div>
+      <div class="feat-card"><h4>G5 — Exercise Library</h4><p>15+ categories: chest, core, hips, stamina, Kegel, facial, yoga</p></div>
+      <div class="feat-card"><h4>G6 — AI Plans</h4><p>Personalized workout plans and meal recommendations</p></div>
+      <div class="feat-card"><h4>G7 — Progress & Reminders</h4><p>Charts, habit streaks, daily goals, optional notifications</p></div>
+      <div class="feat-card"><h4>G8 — Security & Privacy</h4><p>Auth, access control, data export, and account deletion</p></div>
+      <div class="feat-card"><h4>G9 — Insights</h4><p>Practical, encouraging health insights from recorded data</p></div>
+      <div class="feat-card"><h4>G10 — Accessibility</h4><p>Clean, modern UI accessible to users of all technical levels</p></div>
+    </div>
+    <h3>Non-Goals (out of scope for MVP)</h3>
+    <ul>
+      <li>Native Android / iOS applications</li>
+      <li>Medical diagnosis, medication advice, or clinical guidance</li>
+      <li>Guaranteed weight loss or spot fat-reduction claims</li>
+      <li>Real-time medical monitoring or emergency alerts</li>
+      <li>Training custom AI models from scratch</li>
+      <li>Mandatory paid AI for basic tracking features</li>
+      <li>Automatic food recognition from photos</li>
+    </ul>
+  </section>
+
+  <!-- ─── FEATURES ─── -->
+  <section class="spec-section" id="features">
+    <div class="section-header sh-amber">
+      <span>⚙️</span><h2>Core Features (MVP)</h2>
+      <span class="badge tag-amber">Goal Spec §5 — 21 Features</span>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>ID</th><th>Feature</th><th>Priority</th><th>Goals</th></tr></thead>
+        <tbody>
+          <tr><td><strong>F1</strong></td><td>User authentication & profile (name, age, gender, height, weight, fitness goal, activity level, dietary preference, allergies, exercise intensity, sleep schedule)</td><td><span class="badge p0">P0</span></td><td>G1, G8</td></tr>
+          <tr><td><strong>F2</strong></td><td>BMI & weight management (calculator, healthy range, goal setting, daily/weekly/monthly/yearly history, interactive charts)</td><td><span class="badge p0">P0</span></td><td>G2</td></tr>
+          <tr><td><strong>F3</strong></td><td>Daily steps tracker (manual entry, goal, progress ring, weekly chart)</td><td><span class="badge p0">P0</span></td><td>G3</td></tr>
+          <tr><td><strong>F4</strong></td><td>Water intake tracker (quick-add 150/250/500ml, daily total, progress bar, edit/delete)</td><td><span class="badge p0">P0</span></td><td>G3</td></tr>
+          <tr><td><strong>F5</strong></td><td>Food intake & meal diary (breakfast/lunch/dinner/snacks, manual & recipe entry, macro summaries)</td><td><span class="badge p0">P0</span></td><td>G3</td></tr>
+          <tr><td><strong>F6</strong></td><td>Sleep tracker (bedtime + wake time, duration calculation including overnight, history, weekly averages)</td><td><span class="badge p0">P0</span></td><td>G3</td></tr>
+          <tr><td><strong>F7</strong></td><td>Last meal tracker (timestamp, elapsed time display, optional reminder)</td><td><span class="badge p0">P0</span></td><td>G3</td></tr>
+          <tr><td><strong>F8</strong></td><td>Daily activity summary (all habits in one view, habit completion %)</td><td><span class="badge p0">P0</span></td><td>G3, G7</td></tr>
+          <tr><td><strong>F9</strong></td><td>Ingredient-based recipe generator (Indian & international, dietary filters, ingredient ranking)</td><td><span class="badge p0">P0</span></td><td>G4</td></tr>
+          <tr><td><strong>F10</strong></td><td>Recipe details (image, instructions, nutrition estimates, serving adjuster, save favourites)</td><td><span class="badge p0">P0</span></td><td>G4</td></tr>
+          <tr><td><strong>F11</strong></td><td>Exercise library (15+ categories, detailed cards, filters by category/difficulty/equipment/goal)</td><td><span class="badge p0">P0</span></td><td>G5</td></tr>
+          <tr><td><strong>F12</strong></td><td>Personalized workout planner (goal, level, 10–45 min, equipment, low-impact, warm-up/main/cool-down)</td><td><span class="badge p0">P0</span></td><td>G5, G6</td></tr>
+          <tr><td><strong>F13</strong></td><td>Workout tracking (mark exercises complete, duration, session history)</td><td><span class="badge p0">P0</span></td><td>G5, G7</td></tr>
+          <tr><td><strong>F14</strong></td><td>Progress dashboard & insights (weight trends, streaks, milestones, weekly summaries)</td><td><span class="badge p0">P0</span></td><td>G7, G9</td></tr>
+          <tr><td><strong>F15</strong></td><td>Home dashboard (welcome, all metric cards, quick recipe search, sidebar/bottom nav)</td><td><span class="badge p0">P0</span></td><td>G1, G7, G10</td></tr>
+          <tr><td><strong>F16</strong></td><td>Reminders & notifications (water, meals, workouts, bedtime, weight log — customizable)</td><td><span class="badge p1">P1</span></td><td>G7</td></tr>
+          <tr><td><strong>F17</strong></td><td>AI meal plan generator (by ingredients, dietary prefs, allergies, fitness goal)</td><td><span class="badge p1">P1</span></td><td>G4, G6</td></tr>
+          <tr><td><strong>F18</strong></td><td>AI workout plan generator (by fitness level, goals, equipment, time)</td><td><span class="badge p1">P1</span></td><td>G5, G6</td></tr>
+          <tr><td><strong>F19</strong></td><td>AI wellness assistant / WellnessBot (streamed chat, rule-based fallback)</td><td><span class="badge p2">P2</span></td><td>G6, G9</td></tr>
+          <tr><td><strong>F20</strong></td><td>Data export (JSON/CSV) & account deletion</td><td><span class="badge p0">P0</span></td><td>G8</td></tr>
+          <tr><td><strong>F21</strong></td><td>PWA support (installable, optional offline)</td><td><span class="badge p2">P2</span></td><td>G1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ─── KPIs ─── -->
+  <section class="spec-section" id="kpis">
+    <div class="section-header sh-green">
+      <span>📊</span><h2>Success Metrics (KPIs)</h2>
+      <span class="badge tag-green">Goal Spec §8</span>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="kpi-val">≥ 60%</div><div class="kpi-label">Activation rate (first log within 24h)</div></div>
+      <div class="kpi-card"><div class="kpi-val">≥ 25%</div><div class="kpi-label">7-day retention</div></div>
+      <div class="kpi-card"><div class="kpi-val">≥ 15%</div><div class="kpi-label">30-day retention</div></div>
+      <div class="kpi-card"><div class="kpi-val">≥ 80%</div><div class="kpi-label">Recipe satisfaction (thumbs up)</div></div>
+      <div class="kpi-card"><div class="kpi-val">≥ 30%</div><div class="kpi-label">AI plan adoption rate</div></div>
+      <div class="kpi-card"><div class="kpi-val">≥ 95%</div><div class="kpi-label">Core feature success rate</div></div>
+      <div class="kpi-card"><div class="kpi-val">&lt; 2.5s</div><div class="kpi-label">Largest Contentful Paint (LCP)</div></div>
+      <div class="kpi-card"><div class="kpi-val">0</div><div class="kpi-label">Unauthorized data access incidents</div></div>
+    </div>
+  </section>
+
+  <!-- ─── PHASES ─── -->
+  <section class="spec-section" id="phases">
+    <div class="section-header sh-purple">
+      <span>🗓</span><h2>Development Phases</h2>
+      <span class="badge tag-purple">Goal Spec §9</span>
+    </div>
+    <div class="phases">
+      <div class="phase"><div class="phase-num">1</div><div class="phase-body"><h4>Foundation</h4><p>Responsive UI, user registration & profile, dashboard, BMI calculator & weight history, daily tracking (steps, water, sleep, last meal)</p></div></div>
+      <div class="phase"><div class="phase-num">2</div><div class="phase-body"><h4>Nutrition</h4><p>Ingredient inventory, recipe recommendations, meal diary, nutritional summaries</p></div></div>
+      <div class="phase"><div class="phase-num">3</div><div class="phase-body"><h4>Fitness</h4><p>Searchable exercise library, exercise instructions & categories, workout planner, workout tracking</p></div></div>
+      <div class="phase"><div class="phase-num">4</div><div class="phase-body"><h4>Insights & AI</h4><p>Progress charts, habit tracking, personalized recommendations, reminders & notifications, WellnessBot chat</p></div></div>
+      <div class="phase"><div class="phase-num">5</div><div class="phase-body"><h4>Production Readiness</h4><p>Security & privacy checks, responsive testing, accessibility testing, error handling, performance optimization, deployment documentation</p></div></div>
+    </div>
+  </section>
+
+  <!-- ─── TECH STACK ─── -->
+  <section class="spec-section" id="techstack">
+    <div class="section-header sh-blue">
+      <span>🛠</span><h2>Tech Stack</h2>
+      <span class="badge tag-blue">Backend Spec §1</span>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Concern</th><th>Choice</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Language / Runtime</td><td><span class="badge tag-blue">Node.js 20+ TypeScript</span></td><td>Strict mode enabled</td></tr>
+          <tr><td>Framework</td><td><span class="badge tag-blue">Next.js 14+ App Router</span></td><td>Full-stack monorepo; server-side API routes</td></tr>
+          <tr><td>Database</td><td><span class="badge tag-green">PostgreSQL 15 via Supabase</span></td><td>Managed; row-level security enabled</td></tr>
+          <tr><td>ORM / Migrations</td><td><span class="badge tag-blue">Prisma</span></td><td>Schema-first; migrations run on deploy</td></tr>
+          <tr><td>Authentication</td><td><span class="badge tag-green">Supabase Auth</span></td><td>Email/password; JWT access + refresh tokens</td></tr>
+          <tr><td>File Storage</td><td><span class="badge tag-green">Supabase Storage</span></td><td>Exercise images, export files</td></tr>
+          <tr><td>AI Provider</td><td><span class="badge tag-purple">Claude API (Anthropic)</span></td><td>Configurable; modular adapter pattern; server-side only</td></tr>
+          <tr><td>Nutrition API</td><td><span class="badge tag-amber">USDA / Open Food Facts</span></td><td>Configurable; data labeled as estimates</td></tr>
+          <tr><td>Styling</td><td><span class="badge tag-blue">Tailwind CSS</span></td><td>Utility-first; custom design tokens</td></tr>
+          <tr><td>State Management</td><td><span class="badge tag-blue">Zustand + TanStack Query</span></td><td>Global state + server state caching</td></tr>
+          <tr><td>Charts</td><td><span class="badge tag-blue">Recharts</span></td><td>Responsive container on all charts</td></tr>
+          <tr><td>Forms</td><td><span class="badge tag-blue">React Hook Form + Zod</span></td><td>Shared Zod schemas with backend</td></tr>
+          <tr><td>Testing</td><td><span class="badge tag-amber">Jest + Supertest + Playwright</span></td><td>Unit, integration, E2E</td></tr>
+          <tr><td>Deployment</td><td><span class="badge tag-green">Vercel + Supabase</span></td><td>CI/CD via GitHub Actions</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ─── ARCHITECTURE ─── -->
+  <section class="spec-section" id="architecture">
+    <div class="section-header sh-blue">
+      <span>🏗</span><h2>Architecture Overview</h2>
+      <span class="badge tag-blue">Backend Spec §2–3</span>
+    </div>
+    <pre><code>Browser
+  │
+  ▼
+Next.js Route Handlers  (/api/v1/*)
+  │
+  ├─► Auth Middleware  (Supabase JWT validation)
+  │
+  ├─► Service Layer   (business logic + validation)
+  │       ├─► Prisma ORM ──────────► PostgreSQL (Supabase)
+  │       ├─► AI Adapter ──────────► Claude API  (server-side only)
+  │       └─► Nutrition Adapter ──► USDA / OFD  (server-side only)
+  │
+  └─► Supabase Storage  (images, export files)</code></pre>
+    <div class="alert alert-green">All AI and nutrition API keys are server-side only. They never reach the browser. Row-level security (RLS) in Supabase provides a secondary defense-in-depth layer.</div>
+    <h3>Backend Modules</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Module</th><th>Responsibility</th></tr></thead>
+        <tbody>
+          <tr><td>Auth</td><td>Registration, login, token refresh, logout, password reset</td></tr>
+          <tr><td>Users & Profile</td><td>Profile CRUD — name, age, gender, height, weight, goals, activity, dietary pref, allergies, intensity, sleep schedule</td></tr>
+          <tr><td>BMI & Weight</td><td>BMI calculation, weight history (daily/weekly/monthly/yearly), weight goal management</td></tr>
+          <tr><td>Steps Tracker</td><td>Manual step entry, daily step goal, step history and charts</td></tr>
+          <tr><td>Water Tracker</td><td>Water intake logging, daily goal, totals, quick-add amounts</td></tr>
+          <tr><td>Meal & Food</td><td>Food search (via Nutrition Adapter), meal log CRUD, calorie/macro summaries</td></tr>
+          <tr><td>Sleep Tracker</td><td>Bedtime/wake-up recording, sleep duration calculation, history, weekly averages</td></tr>
+          <tr><td>Recipe Engine</td><td>Ingredient-based ranking, AI suggestions, saved recipes, serving size adjustment</td></tr>
+          <tr><td>Exercise Library</td><td>Exercise CRUD, category/filter management, detailed exercise pages</td></tr>
+          <tr><td>Workout Planner</td><td>AI or rule-based plan generation, sessions, completion tracking</td></tr>
+          <tr><td>Progress & Insights</td><td>Trend analysis, habit streaks, weekly summaries, chart data aggregation</td></tr>
+          <tr><td>Notifications</td><td>Reminder configuration, in-app notification center, optional browser push</td></tr>
+          <tr><td>AI Adapter</td><td>Abstraction over AI API — prompts, output validation, error handling, fallback</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ─── DATA MODEL ─── -->
+  <section class="spec-section" id="datamodel">
+    <div class="section-header sh-blue">
+      <span>🗄</span><h2>Data Model</h2>
+      <span class="badge tag-blue">Backend Spec §4</span>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Table</th><th>Key Fields</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><code>users</code></td><td>id (uuid PK), email (unique)</td><td>Managed by Supabase Auth</td></tr>
+          <tr><td><code>profiles</code></td><td>user_id FK, name, age, gender, height_cm, weight_kg, activity_level, fitness_goal, dietary_preference, allergies[], exercise_intensity, wake_time, sleep_time</td><td>1-to-1 with users; auto-created on registration</td></tr>
+          <tr><td><code>weight_records</code></td><td>id, user_id FK, weight_kg, recorded_at, notes</td><td>Many per user; indexed on (user_id, recorded_at DESC)</td></tr>
+          <tr><td><code>weight_goals</code></td><td>id, user_id FK, target_weight_kg, target_date</td><td>One active goal per user</td></tr>
+          <tr><td><code>step_records</code></td><td>id, user_id FK, step_count, source, recorded_date</td><td>Unique on (user_id, recorded_date)</td></tr>
+          <tr><td><code>water_entries</code></td><td>id, user_id FK, amount_ml, logged_at</td><td>Multiple entries per day allowed</td></tr>
+          <tr><td><code>sleep_records</code></td><td>id, user_id FK, bedtime, wake_time, duration_minutes, recorded_date</td><td>Duration computed server-side; unique on (user_id, recorded_date)</td></tr>
+          <tr><td><code>last_meal_records</code></td><td>id, user_id FK, meal_time, recorded_date</td><td></td></tr>
+          <tr><td><code>food_items</code></td><td>id, name, calories_per_100g, protein_g, carbs_g, fat_g, fiber_g, source</td><td>Cached from nutrition API; full-text search index on name</td></tr>
+          <tr><td><code>meal_logs</code></td><td>id, user_id FK, meal_type, logged_at</td><td>Has many meal_log_items</td></tr>
+          <tr><td><code>ingredients</code></td><td>id, name, category, unit</td><td>Shared ingredient catalogue</td></tr>
+          <tr><td><code>recipes</code></td><td>id, name, cuisine, dietary_tags[], difficulty, prep_time_min, cook_time_min, servings, instructions</td><td>Has many recipe_ingredients and recipe_nutrition</td></tr>
+          <tr><td><code>exercises</code></td><td>id, name, category, difficulty, equipment[], target_muscles[], instructions, safety_notes, common_mistakes</td><td>Seeded from curated library</td></tr>
+          <tr><td><code>workout_plans</code></td><td>id, user_id FK, name, fitness_goal, fitness_level, duration_min, source (ai/rule_based)</td><td>Has many workout_plan_exercises</td></tr>
+          <tr><td><code>workout_sessions</code></td><td>id, user_id FK, plan_id, started_at, completed_at, duration_min</td><td>Has many exercise_completions</td></tr>
+          <tr><td><code>ai_conversations</code></td><td>id, user_id FK, created_at</td><td>Has many ai_messages</td></tr>
+          <tr><td><code>reminders</code></td><td>id, user_id FK, reminder_type, scheduled_time, frequency, is_enabled</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>RLS Policy</h3>
+    <p>Row-level security enabled on all tables. Policy: <code class="inline-code">user_id = auth.uid()</code> for all SELECT / INSERT / UPDATE / DELETE operations.</p>
+  </section>
+
+  <!-- ─── API ─── -->
+  <section class="spec-section" id="api">
+    <div class="section-header sh-amber">
+      <span>🔌</span><h2>API Endpoints</h2>
+      <span class="badge tag-amber">API Contract §5 — 60+ Endpoints</span>
+    </div>
+    <div class="alert alert-blue"><strong>Base URL:</strong> <code class="inline-code">https://api.example.com/api/v1</code> &nbsp;·&nbsp; All protected endpoints require <code class="inline-code">Authorization: Bearer &lt;token&gt;</code></div>
+
+    <h3>Auth</h3>
+    <div class="card">
+      <div class="endpoint"><span class="method POST">POST</span><div><div class="ep-path">/auth/register</div><div class="ep-desc">Create a new user account. Body: email, password, name</div></div></div>
+      <div class="endpoint"><span class="method POST">POST</span><div><div class="ep-path">/auth/login</div><div class="ep-desc">Sign in with email and password. Returns access + refresh tokens</div></div></div>
+      <div class="endpoint"><span class="method POST">POST</span><div><div class="ep-path">/auth/refresh</div><div class="ep-desc">Exchange refresh token for new access token</div></div></div>
+      <div class="endpoint"><span class="method POST">POST</span><div><div class="ep-path">/auth/logout</div><div class="ep-desc">Invalidate current session</div></div></div>
+    </div>
+
+    <h3>BMI & Weight</h3>
+    <div class="card">
+      <div class="endpoint"><span class="method POST">POST</span><div><div class="ep-path">/bmi/calculate</div><div class="ep-desc">Calculate BMI. Returns value, category, healthy weight range, disclaimer</div></div></div>
+      <div class="endpoint"><span class="method GET">GET</span><div><div class="ep-path">/weight?from=&to=&view=daily</div><div class="ep-desc">List weight records. Views: daily / weekly / monthly / yearly</div></div></div>
+      <div class="endpoint"><span class="method POST">POST</span><div><div class="ep-path">/weight</div><div class="ep-desc">Log a weight entry. Body: weight_kg, recorded_at, notes?</div></div></div>
+      <div class="endpoint"><span class="method GET">GET</span><div><div class="ep-path">/weight/goal</div><div class="ep-desc">Get current weight goal</div></div></div>
+      <div class="endpoint"><span class="method PUT">PUT</span><div><div class="ep-path">/weight/goal</div><div class="ep-desc">Set or update weight goal</div></div></div>
+    </div>
+
+    <h3>Daily Trackers</h3>
+    <div class="card">
+      <div class="endpoint"><span class="method GET">GET</span><div><div class="ep-path">/tracker/summary?date=2026-10-16</div><div class="ep-desc">Full daily summary — steps, water, meals, sleep, last meal, habits, completion %</div></div></div>
+      <div class="endpoint"><span class="method GET">GET</span><div><div class="ep-path">/tracker/steps?date=</div><div class="ep-desc">Get step record and goal for a date</div></div></div>
+      <div class="endpoint"><span class="method POST">POST</span><div><div class="ep-path">/tracker/steps</div><div class="ep-desc">Log steps. Body: step_count, recorded_date, source</div></div></div>
+      <div class="endpoint"><span class="method GET">GET</span><div><div class="ep-path">/tracker/water?date=</div><div class="ep-desc">List water entries and daily total for a date</div></div></div>
+      <div class="endpoint"><span class="method POST">POST</span><div><div class="ep-path">/tracker/water</div><div class="ep-desc">Log water. Body: amount_ml, logged_at</div></div></div>
+      <div class="endpoint"><span class="method DELETE">DELETE</span><div><div class="ep-path">/tracker/water/:id</div><div class="ep-desc">Delete a water entry</div></div></div>
+      <div class="endpoint"><span class="method POST">POST</span><div><div class="ep-path">/tracker/sleep</div><div class="ep-desc">Log sleep. Body: bedtime, wake_time, recorded_date, notes?</div></div></div>
+      <div class="endpoint"><span class="method POST">POST</span><div><div class="ep-path">/tracker/last-meal</div><div class="ep-desc">Record last meal time</div></div></div>
+    </div>
+
+    <h3>Recipes & Exercises</h3>
+    <div class="card">
+      <div class="endpoint"><span class="method GET">GET</span><div><div class="ep-path">/recipes?ingredients=&dietary=&meal_type=</div><div class="ep-desc">Search recipes by ingredients. Ranked by match score (ingredient overlap)</div></div></div>
+      <div class="endpoint"><span class="method GET">GET</span><div><div class="ep-path">/recipes/:id</div><div class="ep-desc">Full recipe detail with ingredients, instructions, and nutrition (labeled as estimates)</div></div></div>
+      <div class="endpoint"><span class="method GET">GET</span><div><div class="ep-path">/exercises?category=&difficulty=&equipment=</div><div class="ep-desc">Browse exercise library with filters</div></div></div>
+      <div class="endpoint"><span class="method GET">GET</span><div><div class="ep-path">/exercises/:id</div><div class="ep-desc">Full exercise detail — instructions, form, modifications, safety notes, common mistakes</div></div></div>
+    </div>
+
+    <h3>Workout Planner</h3>
+    <div class="card">
+      <div class="endpoint"><span class="method POST">POST</span><div><div class="ep-path">/workout-plans/generate</div><div class="ep-desc">Generate a plan. Body: fitness_goal, fitness_level, duration_min, equipment[], low_impact</div></div></div>
+      <div class="endpoint"><span class="method POST">POST</span><div><div class="ep-path">/workout-sessions</div><div class="ep-desc">Start a workout session</div></div></div>
+      <div class="endpoint"><span class="method PATCH">PATCH</span><div><div class="ep-path">/workout-sessions/:id</div><div class="ep-desc">Complete or update a session</div></div></div>
+      <div class="endpoint"><span class="method POST">POST</span><div><div class="ep-path">/workout-sessions/:id/complete-exercise</div><div class="ep-desc">Mark an exercise as completed</div></div></div>
+    </div>
+
+    <h3>AI Endpoints</h3>
+    <div class="card">
+      <div class="endpoint"><span class="method POST">POST</span><div><div class="ep-path">/ai/chat</div><div class="ep-desc">WellnessBot conversation. Streamed SSE response. Rate limit: 50/day/user</div></div></div>
+      <div class="endpoint"><span class="method POST">POST</span><div><div class="ep-path">/ai/meal-plan</div><div class="ep-desc">Generate AI meal plan. Rate limit: 10/day/user</div></div></div>
+      <div class="endpoint"><span class="method POST">POST</span><div><div class="ep-path">/ai/workout-plan</div><div class="ep-desc">Generate AI workout plan. Rate limit: 20/day/user</div></div></div>
+      <div class="endpoint"><span class="method POST">POST</span><div><div class="ep-path">/ai/recipe-suggestions</div><div class="ep-desc">AI-powered recipe suggestions by ingredients</div></div></div>
+    </div>
+  </section>
+
+  <!-- ─── DESIGN ─── -->
+  <section class="spec-section" id="design">
+    <div class="section-header sh-purple">
+      <span>🎨</span><h2>Design System</h2>
+      <span class="badge tag-purple">Frontend Spec §2</span>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Token</th><th>Value</th><th>Usage</th></tr></thead>
+        <tbody>
+          <tr><td>Primary</td><td><span style="display:inline-flex;align-items:center;gap:6px"><span style="width:14px;height:14px;background:#16a34a;border-radius:3px;display:inline-block"></span> #16A34A (green-600)</span></td><td>Buttons, active nav, progress bars, brand</td></tr>
+          <tr><td>Primary Dark</td><td><span style="display:inline-flex;align-items:center;gap:6px"><span style="width:14px;height:14px;background:#15803d;border-radius:3px;display:inline-block"></span> #15803D (green-700)</span></td><td>Hover and focus states</td></tr>
+          <tr><td>Accent</td><td><span style="display:inline-flex;align-items:center;gap:6px"><span style="width:14px;height:14px;background:#0ea5e9;border-radius:3px;display:inline-block"></span> #0EA5E9 (sky-500)</span></td><td>Charts, highlights, links</td></tr>
+          <tr><td>Warning</td><td><span style="display:inline-flex;align-items:center;gap:6px"><span style="width:14px;height:14px;background:#f59e0b;border-radius:3px;display:inline-block"></span> #F59E0B (amber-500)</span></td><td>Caution notices, missing ingredients</td></tr>
+          <tr><td>Danger</td><td><span style="display:inline-flex;align-items:center;gap:6px"><span style="width:14px;height:14px;background:#ef4444;border-radius:3px;display:inline-block"></span> #EF4444 (red-500)</span></td><td>Errors, destructive actions</td></tr>
+          <tr><td>Typography</td><td>Inter (Google Fonts)</td><td>All body and UI text</td></tr>
+          <tr><td>Border radius</td><td>0.5rem (rounded-lg) base</td><td>Cards; 0.375rem for inputs</td></tr>
+          <tr><td>Min touch target</td><td>44 × 44px</td><td>All interactive elements (WCAG 2.5.5)</td></tr>
+          <tr><td>Dark mode</td><td>Planned for Phase 5</td><td>Toggle in Settings</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ─── PAGES ─── -->
+  <section class="spec-section" id="pages">
+    <div class="section-header sh-purple">
+      <span>📱</span><h2>Pages & Screens</h2>
+      <span class="badge tag-purple">Frontend Spec §4–5</span>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Route</th><th>Page</th><th>Auth</th><th>Key Components</th></tr></thead>
+        <tbody>
+          <tr><td><code>/</code></td><td>Landing page</td><td>No</td><td>Hero, feature grid, how it works, CTA</td></tr>
+          <tr><td><code>/register</code></td><td>Sign up</td><td>No</td><td>RegisterForm, PasswordStrengthBar, password toggle</td></tr>
+          <tr><td><code>/login</code></td><td>Sign in</td><td>No</td><td>LoginForm, error banner</td></tr>
+          <tr><td><code>/onboarding</code></td><td>Profile setup (4-step wizard)</td><td>Yes</td><td>MultiStepForm, ProgressIndicator</td></tr>
+          <tr><td><code>/dashboard</code></td><td>Home dashboard</td><td>Yes</td><td>WeightBMICard, StepRing, WaterBar, SleepCard, HabitCompletion</td></tr>
+          <tr><td><code>/bmi</code></td><td>BMI & Weight</td><td>Yes</td><td>BMICalculator, BMIGauge, WeightChart, WeightGoalCard</td></tr>
+          <tr><td><code>/tracker</code></td><td>Daily Tracker (5 tabs)</td><td>Yes</td><td>Steps, Water, Sleep, Last Meal, Summary tabs</td></tr>
+          <tr><td><code>/recipes</code></td><td>Recipe search</td><td>Yes</td><td>IngredientSearch, RecipeCard, DietaryFilters</td></tr>
+          <tr><td><code>/recipes/:id</code></td><td>Recipe detail</td><td>Yes</td><td>Ingredients, Instructions, NutritionPanel, ServingAdjuster</td></tr>
+          <tr><td><code>/exercises</code></td><td>Exercise library</td><td>Yes</td><td>CategoryGrid, ExerciseCard, FilterBar</td></tr>
+          <tr><td><code>/exercises/:id</code></td><td>Exercise detail</td><td>Yes</td><td>Instructions, SafetyNotes, Modifications, CommonMistakes</td></tr>
+          <tr><td><code>/workout</code></td><td>Workout planner</td><td>Yes</td><td>GeneratorForm, WorkoutPhaseSection, ExerciseRow, SessionTimer</td></tr>
+          <tr><td><code>/progress</code></td><td>Progress reports</td><td>Yes</td><td>Charts, HabitStreaks, Milestones, InsightPanel</td></tr>
+          <tr><td><code>/coach</code></td><td>AI Wellness Assistant</td><td>Yes</td><td>ChatBubbles, QuickStartChips, StreamingCursor, DisclaimerBanner</td></tr>
+          <tr><td><code>/settings</code></td><td>Profile, Goals, Reminders, Privacy</td><td>Yes</td><td>ProfileEditForm, ReminderToggles, DataExportCard, AccountDeletion</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ─── NAVIGATION ─── -->
+  <section class="spec-section" id="navigation">
+    <div class="section-header sh-purple">
+      <span>🧭</span><h2>Navigation Structure</h2>
+      <span class="badge tag-purple">Frontend Spec §16</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+      <div class="card">
+        <h3>Desktop — Sidebar (240px fixed)</h3>
+        <pre style="background:#f3f4f6;color:#374151;font-size:0.78rem;padding:0.75rem;border-radius:8px;margin-top:0.5rem"><code>🌿 WellnessApp
+──────────────────
+  Dashboard
+  Recipes
+  BMI & Weight
+  Daily Tracker
+  Exercises
+  Workout Planner
+  Progress Reports
+──────────────────
+  Profile & Settings</code></pre>
+      </div>
+      <div class="card">
+        <h3>Mobile — Bottom Navigation</h3>
+        <pre style="background:#f3f4f6;color:#374151;font-size:0.78rem;padding:0.75rem;border-radius:8px;margin-top:0.5rem"><code>┌──────────────────────┐
+│ Dashboard · Tracker  │
+│ Recipes · Exercises  │
+│        More ▾        │
+└──────────────────────┘
+"More" → BMI, Workout,
+Progress, Settings</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── RESPONSIVE ─── -->
+  <section class="spec-section" id="responsive">
+    <div class="section-header sh-purple">
+      <span>📐</span><h2>Responsive Strategy</h2>
+      <span class="badge tag-purple">Frontend Spec §3</span>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Breakpoint</th><th>Width</th><th>Layout</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Mobile</strong></td><td>&lt; 640px</td><td>Single column · bottom navigation bar · stacked cards</td></tr>
+          <tr><td><strong>Tablet</strong></td><td>640–1023px</td><td>Two-column content · collapsible sidebar</td></tr>
+          <tr><td><strong>Desktop</strong></td><td>≥ 1024px</td><td>Fixed 240px sidebar · multi-column dashboard cards (3–4 col)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul>
+      <li>Mobile-first approach — Tailwind breakpoint modifiers (sm / md / lg) applied upward</li>
+      <li>All charts use <code class="inline-code">ResponsiveContainer</code> — minimum height 200px on mobile</li>
+      <li>Touch targets minimum 44×44px on all interactive elements</li>
+      <li>Performance budget: LCP &lt; 2.5s · CLS &lt; 0.1 · INP &lt; 200ms</li>
+    </ul>
+  </section>
+
+  <!-- ─── AI OVERVIEW ─── -->
+  <section class="spec-section" id="ai-overview">
+    <div class="section-header sh-purple">
+      <span>🤖</span><h2>AI Assistant — WellnessBot</h2>
+      <span class="badge tag-purple">AI Spec §1–2</span>
+    </div>
+    <div class="card">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;font-size:0.85rem">
+        <div><strong>Name:</strong> WellnessBot</div>
+        <div><strong>Role:</strong> Empathetic Wellness Information Specialist</div>
+        <div><strong>Tone:</strong> Professional, supportive, warm, accessible</div>
+        <div><strong>AI Model:</strong> Claude Sonnet (Anthropic)</div>
+        <div><strong>Route:</strong> <code class="inline-code">/coach</code></div>
+        <div><strong>Streaming:</strong> SSE (Server-Sent Events)</div>
+      </div>
+    </div>
+    <h3>Quick-Start Buttons</h3>
+    <div class="kw-list">
+      <span style="background:var(--green-light);color:var(--green-dark);font-size:0.75rem;padding:3px 10px;border-radius:999px">Check my symptoms</span>
+      <span style="background:var(--green-light);color:var(--green-dark);font-size:0.75rem;padding:3px 10px;border-radius:999px">Manage stress &amp; anxiety</span>
+      <span style="background:var(--green-light);color:var(--green-dark);font-size:0.75rem;padding:3px 10px;border-radius:999px">Meal ideas for my goals</span>
+      <span style="background:var(--green-light);color:var(--green-dark);font-size:0.75rem;padding:3px 10px;border-radius:999px">Suggest a workout</span>
+      <span style="background:var(--green-light);color:var(--green-dark);font-size:0.75rem;padding:3px 10px;border-radius:999px">Improve my sleep</span>
+      <span style="background:var(--green-light);color:var(--green-dark);font-size:0.75rem;padding:3px 10px;border-radius:999px">Explain my BMI</span>
+      <span style="background:var(--green-light);color:var(--green-dark);font-size:0.75rem;padding:3px 10px;border-radius:999px">Review my week</span>
+    </div>
+  </section>
+
+  <!-- ─── AI CAPABILITIES ─── -->
+  <section class="spec-section" id="ai-capabilities">
+    <div class="section-header sh-purple">
+      <span>💡</span><h2>AI Capabilities</h2>
+      <span class="badge tag-purple">AI Spec §3 · Goal Spec §6</span>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Feature</th><th>Endpoint</th><th>Input Context</th><th>Output</th><th>Fallback</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Wellness Chat</strong></td><td>POST /ai/chat</td><td>Last 10 messages + profile summary</td><td>Streamed text (SSE)</td><td>Static FAQ responses</td></tr>
+          <tr><td><strong>Meal Plan</strong></td><td>POST /ai/meal-plan</td><td>Profile, dietary prefs, allergies, ingredients</td><td>JSON meal plan</td><td>Predefined templates by dietary pref</td></tr>
+          <tr><td><strong>Workout Plan</strong></td><td>POST /ai/workout-plan</td><td>Fitness goal, level, time, equipment, history</td><td>JSON plan with phases</td><td>Rule-based plan library</td></tr>
+          <tr><td><strong>Recipe Suggestions</strong></td><td>POST /ai/recipe-suggestions</td><td>Available ingredients, dietary prefs, allergies</td><td>JSON recipe array</td><td>Ingredient-overlap ranking algorithm</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>Context Injection — What IS sent to AI</h3>
+    <pre><code>User profile summary:
+- Age: {age} | Gender: {gender} | Height: {height_cm}cm | Weight: {weight_kg}kg
+- Activity level: {activity_level} | Fitness goal: {fitness_goal}
+- Dietary preference: {dietary_preference} | Allergies: {allergies}
+
+Recent health data (last 7 days):
+- Avg daily steps: {avg_steps} | Avg water: {avg_water_ml}ml/day
+- Avg sleep: {avg_sleep_minutes}min/night | Latest weight: {latest_weight_kg}kg
+- BMI: {bmi} ({bmi_category}) | Habit completion: {habit_pct}%</code></pre>
+    <h3>What is NOT sent to AI</h3>
+    <ul>
+      <li>Email address or full legal name</li>
+      <li>Raw password or authentication tokens</li>
+      <li>Exact dates of birth or precise location</li>
+      <li>Complete meal or food log details (summaries only)</li>
+      <li>Any financial information</li>
+    </ul>
+  </section>
+
+  <!-- ─── AI SAFETY ─── -->
+  <section class="spec-section" id="ai-safety">
+    <div class="section-header sh-red">
+      <span>🛡</span><h2>AI Safety &amp; Guardrails</h2>
+      <span class="badge tag-red">AI Spec §5–7</span>
+    </div>
+
+    <div class="alert alert-amber">
+      <strong>Medical Disclaimer (shown every new chat session):</strong><br/>
+      "Hi! I'm WellnessBot, your AI wellness assistant. I can provide general health and wellness information, but I'm not a healthcare professional and cannot diagnose conditions or prescribe treatments. For medical emergencies, please contact emergency services immediately."
+    </div>
+
+    <h3>Emergency Keyword Detection (Red-Flag Escalation)</h3>
+    <p>The following keywords are checked <strong>client-side before sending</strong> and <strong>server-side before forwarding</strong> to the AI provider. When triggered, the AI is NOT called — a hardcoded emergency response is returned immediately.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Category</th><th>Keywords</th></tr></thead>
+        <tbody>
+          <tr><td>Cardiac emergency</td><td><div class="kw-list"><span class="kw">chest pain</span><span class="kw">heart attack</span><span class="kw">can't breathe</span><span class="kw">shortness of breath</span></div></td></tr>
+          <tr><td>Self-harm</td><td><div class="kw-list"><span class="kw">self-harm</span><span class="kw">hurt myself</span><span class="kw">want to die</span><span class="kw">suicide</span><span class="kw">end my life</span></div></td></tr>
+          <tr><td>Allergic reaction</td><td><div class="kw-list"><span class="kw">severe allergic reaction</span><span class="kw">anaphylaxis</span><span class="kw">throat swelling</span></div></td></tr>
+          <tr><td>Neurological</td><td><div class="kw-list"><span class="kw">stroke</span><span class="kw">facial drooping</span><span class="kw">sudden headache</span><span class="kw">arm weakness</span></div></td></tr>
+          <tr><td>Overdose</td><td><div class="kw-list"><span class="kw">overdose</span><span class="kw">took too many pills</span><span class="kw">poisoning</span></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>AI Rules (System Prompt)</h3>
+    <ul>
+      <li>Never diagnose, prescribe, or provide specific medical treatment advice</li>
+      <li>Never claim exercises can selectively burn fat from specific body areas</li>
+      <li>Never guarantee weight loss, muscle gain, or any specific health outcome</li>
+      <li>Always respect user's dietary preference and allergy list in food recommendations</li>
+      <li>Use hedged language: "research suggests", "many people find", "this may help"</li>
+      <li>For BMI responses, always include the limitations disclaimer</li>
+      <li>For Kegel exercises, always include the pelvic floor safety caution</li>
+      <li>Never suggest extreme calorie restriction or rapid weight loss</li>
+      <li>Do not encourage excessive fasting or restrictive eating patterns</li>
+    </ul>
+
+    <h3>Rate Limits</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Endpoint</th><th>Limit</th><th>Window</th></tr></thead>
+        <tbody>
+          <tr><td>Chat messages</td><td>50 messages</td><td>Per day per user</td></tr>
+          <tr><td>Meal plan generation</td><td>10 requests</td><td>Per day per user</td></tr>
+          <tr><td>Workout plan generation</td><td>20 requests</td><td>Per day per user</td></tr>
+          <tr><td>Recipe suggestions</td><td>30 requests</td><td>Per day per user</td></tr>
+          <tr><td>Identical request cache</td><td>Cached 1 hour</td><td>Per input hash</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ─── AI TECH ─── -->
+  <section class="spec-section" id="ai-tech">
+    <div class="section-header sh-purple">
+      <span>⚙️</span><h2>AI Technical Architecture</h2>
+      <span class="badge tag-purple">AI Spec §10</span>
+    </div>
+    <h3>Adapter Pattern (provider-swappable)</h3>
+    <pre><code>src/lib/ai/
+  adapter.ts           — provider-agnostic AI adapter interface
+  providers/
+    anthropic.ts       — Claude API implementation
+    openai.ts          — OpenAI fallback (optional)
+  prompts/
+    system.ts          — versioned system prompt template
+    meal-plan.ts       — meal plan generation prompt
+    workout-plan.ts    — workout plan generation prompt
+  context.ts           — user context block builder
+  safety.ts            — emergency keyword detection + output validation
+  schemas.ts           — Zod schemas for structured AI outputs</code></pre>
+    <h3>SSE Streaming Event Format</h3>
+    <pre><code>event: token    data: {"text": "Here is some advice..."}
+event: token    data: {"text": " continued..."}
+event: done     data: {"conversation_id": "uuid", "message_id": "uuid", "total_tokens": 312}
+event: error    data: {"code": "AI_UNAVAILABLE", "message": "AI assistant is temporarily unavailable."}</code></pre>
+    <div class="alert alert-green">When AI is unavailable, all AI-powered endpoints remain functional — they serve rule-based fallbacks silently. No "AI failed" message is shown to the user.</div>
+  </section>
+
+  <!-- ─── HEALTH SAFETY ─── -->
+  <section class="spec-section" id="safety">
+    <div class="section-header sh-red">
+      <span>⚕️</span><h2>Health &amp; Safety Rules</h2>
+      <span class="badge tag-red">Goal Spec §10</span>
+    </div>
+    <div class="alert alert-red"><strong>The application is a wellness support tool, not a medical diagnostic system.</strong> These rules apply throughout the entire app — UI, API responses, AI outputs, and exercise descriptions.</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Area</th><th>Rule</th></tr></thead>
+        <tbody>
+          <tr><td>BMI</td><td>Always display: "BMI is a screening tool and does not directly measure body fat or determine complete health status." Do not use adult BMI categories for users under 18.</td></tr>
+          <tr><td>Fat loss</td><td>Never claim exercises can selectively burn fat from breasts, hips, stomach, or face. Always explain that fat loss depends on overall energy balance.</td></tr>
+          <tr><td>Weight management</td><td>Do not prescribe extreme diets or rapid weight-loss targets. Suggestions must be healthy and sustainable.</td></tr>
+          <tr><td>Kegel / Pelvic floor</td><td>Always include: "Kegel exercises are not appropriate for everyone, particularly those with an overactive pelvic floor. Consult a qualified pelvic health professional if you experience pain or symptoms."</td></tr>
+          <tr><td>Fasting / meal timing</td><td>The last meal tracker does not encourage excessive fasting or restrictive eating patterns.</td></tr>
+          <tr><td>Exercise progression</td><td>Always provide beginner modifications. Safety precautions and common mistakes included on every exercise detail page.</td></tr>
+          <tr><td>Medical disclaimer</td><td>Displayed prominently on the AI chat page, onboarding, and wherever health data is interpreted.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ─── PRIVACY ─── -->
+  <section class="spec-section" id="privacy">
+    <div class="section-header sh-amber">
+      <span>🔒</span><h2>Privacy &amp; Compliance</h2>
+      <span class="badge tag-amber">Goal Spec §10 · AI Spec §14</span>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Area</th><th>Requirement</th></tr></thead>
+        <tbody>
+          <tr><td>Regulations</td><td>India's Digital Personal Data Protection Act (DPDPA); GDPR where applicable</td></tr>
+          <tr><td>Authentication</td><td>Supabase Auth — JWT in httpOnly SameSite=Strict cookies. Never in localStorage.</td></tr>
+          <tr><td>Encryption</td><td>HTTPS in transit; data encrypted at rest via Supabase/PostgreSQL infrastructure</td></tr>
+          <tr><td>Row-level security</td><td>RLS enabled on all Supabase tables — users can only access their own rows</td></tr>
+          <tr><td>API keys</td><td>AI, nutrition, and Supabase service role keys are server-side only. Never in frontend code or version control.</td></tr>
+          <tr><td>AI privacy</td><td>Only anonymized profile summaries and aggregated stats sent to AI provider. No email addresses, full names, or raw health records.</td></tr>
+          <tr><td>Data export</td><td>Users can export all their personal data as JSON or CSV from Settings → Privacy</td></tr>
+          <tr><td>Account deletion</td><td>Users can delete their account and all associated data. Documented data deletion policy.</td></tr>
+          <tr><td>Analytics</td><td>Aggregate, anonymized events only. Cookie/analytics consent shown on first visit.</td></tr>
+          <tr><td>Secrets</td><td>Provide <code class="inline-code">env-template.txt</code> with placeholder values only. Never commit real API keys.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div style="text-align:center;padding:2rem 0;color:var(--gray-400);font-size:0.8rem;border-top:1px solid var(--gray-200);margin-top:2rem">
+    <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-bottom:0.4rem">
+      <div style="width:22px;height:22px;background:var(--green);border-radius:6px;display:flex;align-items:center;justify-content:center">
+        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+      </div>
+      <strong style="color:var(--gray-700)">WellnessApp</strong>
+    </div>
+    <p>Project Specification v0.3 · Last updated 2026-10-16 · For general wellness purposes only — not a substitute for professional medical advice.</p>
+  </div>
+
+</main>
+
+<script>
+  // Highlight active sidebar link on scroll
+  const links = document.querySelectorAll('.sidebar-link');
+  const sections = document.querySelectorAll('.spec-section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.sidebar-link[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
